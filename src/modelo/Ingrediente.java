@@ -11,8 +11,9 @@ package modelo;
  */
 public class Ingrediente extends Producto{
     
-    public Ingrediente(String name, int amount, int price) {
-        super(name, amount, price);
+    public Ingrediente(String name) {
+        super(name);
     }
+    
     
 }

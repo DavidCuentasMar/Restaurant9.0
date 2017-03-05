@@ -6,21 +6,18 @@ package modelo;
  */
 public class Producto {
     private String name;
-    private int amount;
     private int price;
 
-    public Producto(String name, int amount, int price) {
+    public Producto(String name, int price) {
         this.name = name;
-        this.amount = amount;
-        this.price = price;
+        this.price=price;
+    }
+     public Producto(String name) { // Poloformismo para ingredientes
+         this.name = name;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getAmount() {
-        return amount;
     }
 
     public int getPrice() {

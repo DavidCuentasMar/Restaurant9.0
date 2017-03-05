@@ -8,14 +8,9 @@ package vista;
 import controlador.Controlador;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Constructor;
-import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
-import modelo.Restaurant;
 
 /**
  *
@@ -52,7 +47,7 @@ public class Configuracion extends javax.swing.JFrame {
 
         jLabel1.setText("Configuración Inicial");
 
-        jLabel2.setText("Archivo:");
+        jLabel2.setText("Archivo Platos:");
 
         jButton1.setText("Seleccionar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,18 +70,20 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nombreArchivoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jButton2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombreArchivoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -121,30 +118,53 @@ public class Configuracion extends javax.swing.JFrame {
             
             archivo = fc.getSelectedFile();
             nombreArchivoTextField.setText(archivo.getAbsolutePath());
-            
-        
-            try(Scanner lector = new Scanner(archivo)){
-                // Mientras el archivo tenga otra línea.
-                while(lector.hasNextLine()){
-                    // Pedir la linea
-                    String linea = lector.nextLine();
-                    System.out.println(linea);
+            try {
+                FileReader fr = new FileReader(archivo);
+                BufferedReader br = new BufferedReader(fr);
+                String cadena;
+                while((cadena=br.readLine())!=null){
                     // Separar los datos
-                    String[] datos = linea.split(",");
-                    
-                    // Convertir los datos
+                    String[] datos = cadena.split(",");
+                    String[] ingredientes = new String[5];
+                     // Convertir los datos
                     String type = datos[0];
                     String name = datos[1];
-                    int amount = Integer.parseInt(datos[2]);
-                    int price = Integer.parseInt(datos[3]);
-                    
-                    //Esto no se debe hacer, CORREGIR CUANDO SE SEPA LO DE 
-                    // MODELO VISTA Y CONTROLADOR // Bueno no se si este bien
-                    // pero parece que sirve
-                    controlador.InitialConfig(type, name, amount, price);
-                    
+                    int price = Integer.parseInt(datos[2]);
+                    ingredientes[0] = datos[3];
+                    ingredientes[1] = datos[4];
+                    ingredientes[2] = datos[5];
+                    ingredientes[3] = datos[6];
+                    ingredientes[4] = datos[7];
+                    controlador.InitialConfig(type, name, price, ingredientes);
                 }
-            } catch (FileNotFoundException ex) {
+                /*
+                try(Scanner lector = new Scanner(archivo)){
+                // Mientras el archivo tenga otra línea.
+                System.out.println(lector.hasNextLine());
+                while(lector.hasNextLine()){
+                // Pedir la linea
+                String linea = lector.nextLine();
+                System.out.println(linea);
+                // Separar los datos
+                String[] datos = linea.split(",");
+                String[] ingredientes = new String[5];
+                
+                // Convertir los datos
+                String type = datos[0];
+                String name = datos[1];
+                int price = Integer.parseInt(datos[2]);
+                ingredientes[0] = datos[3];
+                ingredientes[1] = datos[4];
+                ingredientes[2] = datos[5];
+                ingredientes[3] = datos[6];
+                ingredientes[4] = datos[7];
+                controlador.InitialConfig(type, name, price, ingredientes);             
+                }
+                } catch (FileNotFoundException ex) {
+                System.out.println("Archivo no existe "+ "No se pudo encontrar el archivo");
+                }
+                */ //I DONT KNOW WHY THE SCANNER DOESN'T WORK NOW, IT DID IT BEFORE. 
+            } catch (Exception ex) {
                 System.out.println("Archivo no existe "+ "No se pudo encontrar el archivo");
             }
         }

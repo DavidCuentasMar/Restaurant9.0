@@ -13,14 +13,28 @@ public class Bodega {
         postres = new ArrayList<>();
     }
     
-    public void agregarBebida(String name, int amount, int price){
-        bebidas.add(new Bebida(name, amount, price));        
+    public void agregarBebida(Bebida b){
+        bebidas.add(b);      
+        System.out.println("ok beb");
     }
-    public void agregarIngrediente(String name, int amount, int price){
-        ingredientes.add(new Ingrediente(name, amount, price));
+    public void agregarIngrediente(String[] ingredienteV){
+        for (int i = 0; i < ingredienteV.length; i++) {
+            if (ingredientes.isEmpty()) {
+                ingredientes.add(new Ingrediente(ingredienteV[i]));     
+            }else{
+                for (int j = 0; j < ingredientes.size(); j++) {
+                    if (!ingredientes.get(j).getName().equals(ingredienteV[i])) {
+                        ingredientes.add(new Ingrediente(ingredienteV[i]));
+                    }
+                }
+            }
+        }
+        System.out.println("ok ing");
     }
-    public void agregarPostre(String name, int amount, int price){
-        postres.add(new Postre(name, amount, price));
+    public void agregarPostre(Postre p){
+        postres.add(p);
+        System.out.println("ok postres");
+
     }
 
     

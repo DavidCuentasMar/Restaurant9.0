@@ -19,8 +19,8 @@ public class Controlador {
 
     }
     
-    public void InitialConfig(String type, String name, int amount, int price){
-        restaurant.InitialConfig(type, name, amount, price);
+    public void InitialConfig(String type, String name, int price, String[] ingredientes){
+        restaurant.InitialConfig(type, name, price, ingredientes);
     }
     
 }

@@ -11,8 +11,10 @@ package modelo;
  */
 public class Postre extends Producto{
     
-    public Postre(String name, int amount, int price) {
-        super(name, amount, price);
+    public Postre(String name, int price) {
+        super(name, price);
     }
+    
+ 
     
 }

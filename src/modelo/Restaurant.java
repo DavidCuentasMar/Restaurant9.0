@@ -14,22 +14,30 @@ import vista.Configuracion;
 public class Restaurant {
 
     private Bodega bodega;
-
+    private Menu menu;
     public Restaurant() {
         bodega = new Bodega();
+        menu = new Menu();
     }
-    public void InitialConfig(String type, String name, int amount, int price){
-    // Llenar la bodega de productos //
-    //se te olvide los arraylist para que se pueda testiar si sirve
+    public void InitialConfig(String type, String name, int price, String[] ingredientes){
+        if (type.equals("PLT")) {
+            Plato p = new Plato(name,price);
+            p.agregarIngredientes(ingredientes);
+            menu.agregarPlato(p);
+            bodega.agregarIngrediente(ingredientes);
+        }
         if (type.equals("B")) {
-            bodega.agregarBebida(name, amount, price);         
+            Bebida b = new Bebida(name,price);
+            bodega.agregarBebida(b);
+            menu.agregarBebida(b);
         }
         if (type.equals("P")) {
-            bodega.agregarPostre(name, amount, price);
+            Postre p = new Postre(name,price);
+            menu.agregarPostre(p);
+            bodega.agregarPostre(p);
         }
-        if (type.equals("I")) {
-            bodega.agregarIngrediente(name, amount, price);
-        }
+        
+    
     }
     
     public static void main(String[] args) {

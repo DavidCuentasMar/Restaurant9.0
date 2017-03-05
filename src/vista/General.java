@@ -5,6 +5,9 @@
  */
 package vista;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -212,7 +215,21 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnAddActionPerformed
 
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
+           // Crear un nuevo escritor
+            // Hallamos el numero de filas
+            int filas = TablePedidos.getRowCount();
             
+            // Tomamos el modelo
+            DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
+            
+            for(int i = 0; i < filas; ++i) {
+                String plato = model.getValueAt(i, 0).toString();
+                String Bebida = model.getValueAt(i, 1).toString();
+                String Postre = model.getValueAt(i, 2).toString();
+                Object Precio = model.getValueAt(i, 3);
+            
+            }
+        
     }//GEN-LAST:event_BtnPedidosActionPerformed
 
     /**
