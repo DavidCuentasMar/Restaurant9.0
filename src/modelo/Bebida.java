@@ -9,11 +9,23 @@ package modelo;
  *
  * @author Administrador
  */
-public class Bebida extends Producto{
-    
+public class Bebida {
+    private String name;
+    private double price;
+
     public Bebida(String name, int price) {
-        super(name, price);
+        this.name = name;
+        this.price = price;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+   
     
 
     

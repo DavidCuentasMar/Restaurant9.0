@@ -5,7 +5,9 @@
  */
 package modelo;
 
+import java.io.File;
 import vista.Configuracion;
+import vista.ConfiguracionPlatos;
 
 /**
  *
@@ -20,12 +22,12 @@ public class Restaurant {
         menu = new Menu();
     }
     public void InitialConfig(String type, String name, int price, String[] ingredientes){
-        if (type.equals("PLT")) {
             Plato p = new Plato(name,price);
             p.agregarIngredientes(ingredientes);
             menu.agregarPlato(p);
-            bodega.agregarIngrediente(ingredientes);
-        }
+            bodega.agregarIngrediente(ingredientes);                    
+    }
+    public void InitialConfig(String type, String name, int price){
         if (type.equals("B")) {
             Bebida b = new Bebida(name,price);
             bodega.agregarBebida(b);
@@ -35,14 +37,21 @@ public class Restaurant {
             Postre p = new Postre(name,price);
             menu.agregarPostre(p);
             bodega.agregarPostre(p);
-        }
-        
-    
+        }                 
     }
     
+        
+    
     public static void main(String[] args) {
-        Configuracion c = new Configuracion();
-        c.setVisible(true);
+        if (new File("archivos/productos.txt").exists()){
+            ConfiguracionPlatos cp = new ConfiguracionPlatos();
+            cp.setVisible(true);
+        }else{
+            Configuracion c = new Configuracion();
+            c.setVisible(true);
+        }
+        
+        
     }
     
 }

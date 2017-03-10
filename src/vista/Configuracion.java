@@ -5,26 +5,25 @@
  */
 package vista;
 
-import controlador.Controlador;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Administrador
+ * @author dacuentas
  */
 public class Configuracion extends javax.swing.JFrame {
-    File archivo;
-    public Controlador controlador;
+
     /**
-     * Creates new form Vista
+     * Creates new form Configuracion
      */
     public Configuracion() {
+        setLocation(600,300);
         initComponents();
-        controlador = new Controlador();
     }
 
     /**
@@ -36,30 +35,58 @@ public class Configuracion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fc = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        nombreArchivoTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        TxtConfig = new javax.swing.JTextField();
+        BtnAdd = new javax.swing.JButton();
+        CantSpinner = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Table = new javax.swing.JTable();
+        TipoCombox = new javax.swing.JComboBox<>();
+        BtnSend = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("BankGothic Md BT", 1, 24)); // NOI18N
         jLabel1.setText("Configuración Inicial");
 
-        jLabel2.setText("Archivo Platos:");
-
-        jButton1.setText("Seleccionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BtnAdd.setText("Agregar");
+        BtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BtnAddActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        CantSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        Table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tipo", "Nombre", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Long.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(Table);
+
+        TipoCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Ingrediente", "Postre", "Bebida" }));
+        TipoCombox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                TipoComboxActionPerformed(evt);
+            }
+        });
+
+        BtnSend.setText("Enviar");
+        BtnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSendActionPerformed(evt);
             }
         });
 
@@ -68,114 +95,93 @@ public class Configuracion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnAdd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(73, 73, 73)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nombreArchivoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(TxtConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CantSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(nombreArchivoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(TxtConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CantSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TipoCombox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(BtnAdd)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnSend)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Agregar filtro a FileChooser
-        FileNameExtensionFilter filter = 
-                new FileNameExtensionFilter("Archivos .txt", "txt", "texto");
-        fc.setFileFilter(filter);
+    private void TipoComboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoComboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TipoComboxActionPerformed
+
+    private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel)Table.getModel();
+        Object [] Filas = new Object[3];
         
-        // Mostrar el FileChooser
-        int opcion = fc.showOpenDialog(this);
-        // Si el usuario escogió abrir
-        if(opcion == JFileChooser.APPROVE_OPTION) {
-            // Asignar archivo y nombre.
-            
-            archivo = fc.getSelectedFile();
-            nombreArchivoTextField.setText(archivo.getAbsolutePath());
-            try {
-                FileReader fr = new FileReader(archivo);
-                BufferedReader br = new BufferedReader(fr);
-                String cadena;
-                while((cadena=br.readLine())!=null){
-                    // Separar los datos
-                    String[] datos = cadena.split(",");
-                    String[] ingredientes = new String[5];
-                     // Convertir los datos
-                    String type = datos[0];
-                    String name = datos[1];
-                    int price = Integer.parseInt(datos[2]);
-                    ingredientes[0] = datos[3];
-                    ingredientes[1] = datos[4];
-                    ingredientes[2] = datos[5];
-                    ingredientes[3] = datos[6];
-                    ingredientes[4] = datos[7];
-                    controlador.InitialConfig(type, name, price, ingredientes);
-                }
-                /*
-                try(Scanner lector = new Scanner(archivo)){
-                // Mientras el archivo tenga otra línea.
-                System.out.println(lector.hasNextLine());
-                while(lector.hasNextLine()){
-                // Pedir la linea
-                String linea = lector.nextLine();
-                System.out.println(linea);
-                // Separar los datos
-                String[] datos = linea.split(",");
-                String[] ingredientes = new String[5];
-                
-                // Convertir los datos
-                String type = datos[0];
-                String name = datos[1];
-                int price = Integer.parseInt(datos[2]);
-                ingredientes[0] = datos[3];
-                ingredientes[1] = datos[4];
-                ingredientes[2] = datos[5];
-                ingredientes[3] = datos[6];
-                ingredientes[4] = datos[7];
-                controlador.InitialConfig(type, name, price, ingredientes);             
-                }
-                } catch (FileNotFoundException ex) {
-                System.out.println("Archivo no existe "+ "No se pudo encontrar el archivo");
-                }
-                */ //I DONT KNOW WHY THE SCANNER DOESN'T WORK NOW, IT DID IT BEFORE. 
-            } catch (Exception ex) {
-                System.out.println("Archivo no existe "+ "No se pudo encontrar el archivo");
+        Object i = TipoCombox.getSelectedItem();
+        String m = String.valueOf(i);
+        String n = TxtConfig.getText();
+        String l = CantSpinner.getValue().toString();
+        
+        Filas[0] = m;
+        Filas[1] = n;
+        Filas[2] = l;
+        model.addRow(Filas);
+        Table.setModel(model);
+        
+    }//GEN-LAST:event_BtnAddActionPerformed
+
+    private void BtnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSendActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) Table.getModel();
+        
+        try(FileWriter bw = new FileWriter("archivos/productos.txt", true)){            
+            BufferedWriter w = new BufferedWriter(bw);
+            int Filas = Table.getRowCount();
+            for (int i = 0; i < Filas; i++) {
+                Object tipo = Table.getValueAt(i, 0);
+                Object nombre = Table.getValueAt(i, 1);
+                Object cantidad = Table.getValueAt(i, 2);
+                w.write(tipo+","+nombre+","+cantidad);
+                w.newLine();
             }
+            w.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ConfiguracionPlatos cp = new ConfiguracionPlatos();
+        cp.setVisible(true);
+        this.dispose();
+        
+                
+    }//GEN-LAST:event_BtnSendActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       General g = new General();
-       g.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -202,7 +208,6 @@ public class Configuracion extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -213,11 +218,13 @@ public class Configuracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JFileChooser fc;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton BtnAdd;
+    private javax.swing.JButton BtnSend;
+    private javax.swing.JSpinner CantSpinner;
+    private javax.swing.JTable Table;
+    private javax.swing.JComboBox<String> TipoCombox;
+    private javax.swing.JTextField TxtConfig;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField nombreArchivoTextField;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

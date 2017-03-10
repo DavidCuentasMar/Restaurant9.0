@@ -1,0 +1,12 @@
+Ingrediente,Arroz,1
+Ingrediente,Bebida,1
+Bebida,Cocacola,1
+Postre,Brownie,1
+Ingrediente,Arroz,1
+Ingrediente,Bebida,1
+Bebida,Cocacola,1
+Postre,Brownie,1
+Ingrediente,Arroz,1
+Ingrediente,Bebida,1
+Bebida,Cocacola,1
+Postre,Brownie,1

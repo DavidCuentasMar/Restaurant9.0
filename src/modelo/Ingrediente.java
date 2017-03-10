@@ -9,11 +9,18 @@ package modelo;
  *
  * @author Administrador
  */
-public class Ingrediente extends Producto{
-    
+public class Ingrediente{
+    private String name;
+
     public Ingrediente(String name) {
-        super(name);
+        this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    
     
     
 }

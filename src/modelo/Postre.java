@@ -9,10 +9,21 @@ package modelo;
  *
  * @author Administrador
  */
-public class Postre extends Producto{
-    
+public class Postre {
+    private String name;
+    private int price;
+
     public Postre(String name, int price) {
-        super(name, price);
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
     }
     
  
