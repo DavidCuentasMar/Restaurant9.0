@@ -22,8 +22,8 @@ public class Configuracion extends javax.swing.JFrame {
      * Creates new form Configuracion
      */
     public Configuracion() {
-        setLocation(600,300);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

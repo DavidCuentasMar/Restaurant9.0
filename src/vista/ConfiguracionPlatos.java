@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
-
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,64 +6,29 @@ import java.util.Scanner;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author dacuentas
  */
 public class ConfiguracionPlatos extends javax.swing.JFrame {
-    
-    /**
-     * Creates new form ConfiguracionPlatos
-     */
-    public ConfiguracionPlatos() {
-//        int xv = 0;
-//        int yv = 0;
-//        int x = 0;
-//        int y = 0;
-        
+    public ConfiguracionPlatos() {               
         initComponents();
-        File archivo = new File("archivos/productos.txt");
-        
-        
-            try(Scanner lector = new Scanner(archivo)){
-                JPanel panel = new JPanel();
-                panel.setSize(50, 50);
-                panel.setBorder(BorderFactory.createLineBorder(Color.RED));
-                panel.setLocation(50,50);
-                this.add(panel);
-////                x = 50;
-////                y = 100;
-//                int cont = 0;
-                while(lector.hasNextLine()){
-//                    cont++;
-                    
-                    // Take the line 
+        this.setLocationRelativeTo(null);
+        File archivo = new File("archivos/productos.txt");     
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+            try(Scanner lector = new Scanner(archivo)){                
+                while(lector.hasNextLine()){                                   
                     String linea = lector.nextLine();
-                    // Separamos los datos
                     String[] datos = linea.split(",");
-                    String name = datos[1];
-                    JRadioButton jr = new JRadioButton(name);
-                    jr.setSize(90, 50);
-//                    if (cont==10) {
-//                        cont = 0;
-//                        y=0;
-//                        x = 100;
-//                    }
-//                    jr.setLocation(x, y);
-//                    this.add(jr);
-//                    y=y+40;
-                    System.out.println(name);
-                    
-                   
-                }
-                
-                
+                    String name = datos[1];          
+                    System.out.println(name);      
+                    model.addRow(new Object[]{name});
+                }   
             }catch(FileNotFoundException ex){
             
             }
-//        this.setSize(x, y);
-        this.setResizable(false);
     }
     void Generar(){        
             
@@ -89,11 +48,34 @@ public class ConfiguracionPlatos extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("BankGothic Md BT", 1, 24)); // NOI18N
         jLabel1.setText("Creación de Platos");
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ingrediente", "Agregar"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(table);
+
+        jButton1.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,12 +83,19 @@ public class ConfiguracionPlatos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jTextField1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
                 .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jLabel1)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jButton1)))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +104,11 @@ public class ConfiguracionPlatos extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -157,7 +150,10 @@ public class ConfiguracionPlatos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
