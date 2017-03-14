@@ -1,34 +1,48 @@
 package vista;
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JToggleButton;
 /**
  *
  * @author dacuentas
  */
 public class ConfiguracionPlatos extends javax.swing.JFrame {
-    public ConfiguracionPlatos() {               
+    ArrayList<JToggleButton>LBotones;
+    public ConfiguracionPlatos() {        
         initComponents();
+        LBotones = new ArrayList();
         this.setLocationRelativeTo(null);
-        File archivo = new File("archivos/productos.txt");     
-        DefaultTableModel model = (DefaultTableModel)table.getModel();
-            try(Scanner lector = new Scanner(archivo)){                
-                while(lector.hasNextLine()){                                   
+        File archivo = new File("archivos/productos.txt");        
+        try(Scanner lector = new Scanner(archivo)){                
+                while(lector.hasNextLine()){                   
                     String linea = lector.nextLine();
                     String[] datos = linea.split(",");
                     String name = datos[1];          
-                    System.out.println(name);      
-                    model.addRow(new Object[]{name});
+                    System.out.println(name);
+                    JToggleButton JRB = new JToggleButton(name);        
+                    panel.add(JRB);
+                    JRB.setName(name);
+                    LBotones.add(JRB);
                 }   
+                panel.updateUI();
             }catch(FileNotFoundException ex){
             
             }
+        
+//        DefaultTableModel model = (DefaultTableModel)table.getModel();
+//            try(Scanner lector = new Scanner(archivo)){                
+//                while(lector.hasNextLine()){                                   
+//                    String linea = lector.nextLine();
+//                    String[] datos = linea.split(",");
+//                    String name = datos[1];          
+//                    System.out.println(name);      
+//                    model.addRow(new Object[]{name});
+//                }   
+//            }catch(FileNotFoundException ex){
+//            
+//            }
     }
     void Generar(){        
             
@@ -48,71 +62,72 @@ public class ConfiguracionPlatos extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("BankGothic Md BT", 1, 24)); // NOI18N
         jLabel1.setText("Creación de Platos");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Ingrediente", "Agregar"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        jButton1.setText("Crear Plato");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(table);
 
-        jButton1.setText("jButton1");
+        panel.setLayout(new java.awt.GridLayout(0, 3));
+        jScrollPane1.setViewportView(panel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
-                .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jTextField1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
+                        .addGap(112, 112, 112)
                         .addComponent(jButton1)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int x = panel.getComponentCount();
+        for (int i = 0; i < LBotones.size(); i++) {
+            if (LBotones.get(i).isSelected()) {
+                System.out.println(LBotones.get(i).getName() + "is Selected");
+            }
+        }
+        panel.getComponents();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,12 +163,12 @@ public class ConfiguracionPlatos extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable table;
+    private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }

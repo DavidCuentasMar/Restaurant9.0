@@ -1,9 +1,8 @@
-Ingrediente,Arroz,1
-Ingrediente,Carne,1
-Ingrediente,Pollo,1
-Postre,Brownie,1
-Postre,Pudin,1
-Postre,Chocorramo,1
-Bebida,Cocacola,1
-Bebida,Pepsi,1
-Bebida,Cuatro,1
+Bebida,Cocacola,1000
+Postre,Brownie,50
+Ingrediente,Arroz,100
+Ingrediente,Pollo,100
+Ingrediente,Carne,100
+Ingrediente,Pescado,100
+Postre,Sopa,100
+Bebida,Pepsi,100
