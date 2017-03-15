@@ -11,28 +11,36 @@ import java.util.ArrayList;
  *
  * @author pollo4053
  */
+
 public class Pedido {
-    private int NumMesa;
-    private int MeseroID;
-    ArrayList<Postre>postres;
-    ArrayList<Bebida>bebidas;
-    ArrayList platoslist;
-
-    public Pedido(int NumMesa, int MeseroID) {
-        this.NumMesa = NumMesa;
-        this.MeseroID = MeseroID;
-        postres = new ArrayList();
-        bebidas = new ArrayList();
-        platoslist = new ArrayList();
-    }
-    public void agregarPlato(int cantidad, String name){
-        
-    }
-    public void agregarBebida(int cantidad, String name){
     
+    public static class Pedidos{
+        String Plato;
+        String Bebida;
+        String Postre;
+        int NroMesa;
+        int Mesero;
+        Pedidos link;
     }
-    public void agregarPostre(int cantidad, String name){}
+    public static Pedidos ptr = null;
     
-    
-
+    public static Pedidos AgregarPedido(Pedidos ptr,String Plato,String Bebida, String Postre, int NroMesa, int Mesero){
+        Pedidos p = new Pedidos();
+        p.Plato = Plato;
+        p.Bebida = Bebida;
+        p.Postre = Postre;
+        p.NroMesa = NroMesa;
+        p.Mesero = Mesero;
+        if (ptr == null) {
+            ptr = p;
+        }else{
+            Pedidos q = ptr;
+            while (q.link != null) {                
+                q = q.link;
+            }
+            q.link = p;
+        }
+        return ptr;
+    }
+  
 }
