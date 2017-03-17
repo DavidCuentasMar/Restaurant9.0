@@ -5,9 +5,6 @@
  */
 package vista;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import modelo.Pedido;
 

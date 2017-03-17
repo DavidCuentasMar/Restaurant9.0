@@ -1,8 +1,10 @@
-Bebida,Cocacola,1000
-Postre,Brownie,50
-Ingrediente,Arroz,100
 Ingrediente,Pollo,100
+Ingrediente,Arroz,100
 Ingrediente,Carne,100
-Ingrediente,Pescado,100
-Postre,Sopa,100
-Bebida,Pepsi,100
+Ingrediente,Cerdo,100
+Ingrediente,Huevo,100
+Ingrediente,Aguacate,100
+Ingrediente,Pavo,100
+Ingrediente,Arepa,100
+Ingrediente,Chorizo,100
+Bebida,Cocacola,100

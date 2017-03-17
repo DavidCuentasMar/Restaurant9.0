@@ -5,6 +5,9 @@
  */
 package controlador;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import modelo.Archivo;
 import modelo.Restaurant;
 
 /**
@@ -12,18 +15,27 @@ import modelo.Restaurant;
  * @author Administrador
  */
 public class Controlador {
-    public Restaurant restaurant;
+    private Restaurant restaurant;
+    private Archivo archivo;
 
     public Controlador() {
         restaurant = new Restaurant();
+        archivo = new Archivo();
 
     }
     
-    public void InitialConfig(String type, String name, int price, String[] ingredientes){
-        restaurant.InitialConfig(type, name, price, ingredientes);
+    public void CrearArchivoProductos(DefaultTableModel model, JTable Table){
+        restaurant.CrearArchivoProductos(model, Table);
     }
-    public void InitialConfig(String type, String name, int price){
-        restaurant.InitialConfig(type, name, price);
+    
+    public void AgregarLista(String Ingrediente){
+        restaurant.AgregarLista(Ingrediente);
     }
+
+    public void CrearArchivoPlatos(String name, int price) {
+        restaurant.CrearArchivoPlatos(name, price);
+    }
+    
+    
     
 }

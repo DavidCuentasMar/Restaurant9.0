@@ -5,11 +5,7 @@
  */
 package vista;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import controlador.Controlador;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,11 +13,12 @@ import javax.swing.table.DefaultTableModel;
  * @author dacuentas
  */
 public class Configuracion extends javax.swing.JFrame {
-
+    public Controlador controlador;
     /**
      * Creates new form Configuracion
      */
     public Configuracion() {
+        controlador = new Controlador();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -76,14 +73,14 @@ public class Configuracion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Table);
 
-        TipoCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Ingrediente", "Postre", "Bebida" }));
+        TipoCombox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingrediente", "Postre", "Bebida" }));
         TipoCombox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TipoComboxActionPerformed(evt);
             }
         });
 
-        BtnSend.setText("Enviar");
+        BtnSend.setText("Finalizar");
         BtnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSendActionPerformed(evt);
@@ -109,8 +106,8 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
+                .addComponent(BtnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +123,9 @@ public class Configuracion extends javax.swing.JFrame {
                 .addComponent(BtnAdd)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnSend)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,13 +138,11 @@ public class Configuracion extends javax.swing.JFrame {
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)Table.getModel();
-        Object [] Filas = new Object[3];
-        
+        Object [] Filas = new Object[3];        
         Object i = TipoCombox.getSelectedItem();
         String m = String.valueOf(i);
         String n = TxtConfig.getText();
         String l = CantSpinner.getValue().toString();
-        
         Filas[0] = m;
         Filas[1] = n;
         Filas[2] = l;
@@ -159,21 +154,7 @@ public class Configuracion extends javax.swing.JFrame {
     private void BtnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSendActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) Table.getModel();
-        
-        try(FileWriter bw = new FileWriter("archivos/productos.txt", true)){            
-            BufferedWriter w = new BufferedWriter(bw);
-            int Filas = Table.getRowCount();
-            for (int i = 0; i < Filas; i++) {
-                Object tipo = Table.getValueAt(i, 0);
-                Object nombre = Table.getValueAt(i, 1);
-                Object cantidad = Table.getValueAt(i, 2);
-                w.write(tipo+","+nombre+","+cantidad);
-                w.newLine();
-            }
-            w.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        controlador.CrearArchivoProductos(model, Table);      
         ConfiguracionPlatos cp = new ConfiguracionPlatos();
         cp.setVisible(true);
         this.dispose();
