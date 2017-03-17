@@ -1,10 +1,12 @@
-Ingrediente,Pollo,100
-Ingrediente,Arroz,100
-Ingrediente,Carne,100
-Ingrediente,Cerdo,100
-Ingrediente,Huevo,100
-Ingrediente,Aguacate,100
-Ingrediente,Pavo,100
-Ingrediente,Arepa,100
-Ingrediente,Chorizo,100
-Bebida,Cocacola,100
+Ingrediente,Arroz,100,0
+Postre,Brownie,100,5000
+Bebida,CocaCola,100,1200
+Ingrediente,Carne,100,0
+Ingrediente,Pollo,100,0
+Ingrediente,Chorizo,100,0
+Ingrediente,Arepa,100,0
+Ingrediente,Frijol,100,0
+Ingrediente,Lenteja,100,0
+Ingrediente,Huevo,100,0
+Ingrediente,Aguacate,100,0
+Bebida,Agua e' Panela,1000,1000

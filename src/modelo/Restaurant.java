@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import vista.Configuracion;
 import vista.ConfiguracionPlatos;
+import vista.General;
 
 /**
  *
@@ -36,12 +37,20 @@ public class Restaurant {
         
     
     public static void main(String[] args) {
-        if (new File("archivos/productos.txt").exists()){
-            ConfiguracionPlatos cp = new ConfiguracionPlatos();
-            cp.setVisible(true);
+        if (new File("archivos/productos.txt").exists() && new File("archivos/platos.txt").exists()){
+            General g = new General();
+            g.setVisible(true);            
         }else{
-            Configuracion c = new Configuracion();
-            c.setVisible(true);
+            if (!new File("archivos/productos.txt").exists()) {
+                Configuracion c = new Configuracion();
+                c.setVisible(true);
+            }else{
+                ConfiguracionPlatos c = new ConfiguracionPlatos();
+                c.setVisible(true);
+            }
+            
+            
+            
         }
         
         

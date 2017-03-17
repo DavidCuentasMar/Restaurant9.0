@@ -30,7 +30,8 @@ public class Archivo {
                 Object tipo = Table.getValueAt(i, 0);
                 Object nombre = Table.getValueAt(i, 1);
                 Object cantidad = Table.getValueAt(i, 2);
-                w.write(tipo+","+nombre+","+cantidad);
+                Object precio = Table.getValueAt(i, 3);                
+                w.write(tipo+","+nombre+","+cantidad+","+precio);
                 w.newLine();
             }
             w.close();

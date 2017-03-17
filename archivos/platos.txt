@@ -1,3 +1,2 @@
-Arroz con Pollo,5000,Pollo+Arroz
-Bandeja Paisa,12000,Arroz+Carne+Huevo+Aguacate+Arepa+Chorizo
-Arepa e' Huevo,3000,Huevo+Arepa
+Corrientazo de Pollo,7500,Arroz+Carne+Arepa+Lenteja
+Corrientazo de Carne,7500,Arroz+Pollo+Arepa+Lenteja
