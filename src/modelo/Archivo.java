@@ -6,10 +6,16 @@
 package modelo;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import vista.Configuracion;
@@ -20,6 +26,59 @@ import vista.Configuracion;
  */
 public class Archivo {
     Nodo p = new Nodo();
+    
+    public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
+        String platosSrc="archivos/platos.txt";        
+        FormarMenu(platosSrc, platosPanel, bebidasPanel, postresPanel);
+        String productosSrc ="archivos/productos.txt";
+        FormarMenu(productosSrc , platosPanel, bebidasPanel, postresPanel);
+        
+        
+    }
+    public void FormarMenu(String ruta, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
+    String token = "";
+        File archivo = new File(ruta);
+        try(Scanner lector = new Scanner(archivo)){
+            while(lector.hasNextLine()){
+                String linea = lector.nextLine();
+                StringTokenizer st = new StringTokenizer(linea,",");
+                if (ruta.equals("archivos/platos.txt")) {
+                    boolean Sw = true;
+                    while(Sw){
+                        token = st.nextElement().toString();
+                        Sw = false;
+                    }
+                    JButton B = new JButton(token);
+
+                    platosPanel.add(B);
+                    B.setName(token);                    
+                }
+                if (ruta.equals("archivos/productos.txt")) {
+                    boolean Sw = true;
+                    while(Sw){
+                        token = st.nextElement().toString();
+                        if (token.equals("Bebida")) {
+                            token = st.nextElement().toString();
+                            JButton B = new JButton(token);
+                            bebidasPanel.add(B);
+                            B.setName(token);                               
+                        }
+                        if (token.equals("Postre")) {
+                            token = st.nextElement().toString();
+                            JButton B = new JButton(token);
+                            postresPanel.add(B);
+                            B.setName(token);                            
+                        } 
+                        Sw=false;
+                    }                                     
+                }                                             
+            }
+            platosPanel.updateUI();
+            
+        }catch(FileNotFoundException ex){
+            
+        }
+    }
     public void CrearArchivoProductos(DefaultTableModel model, JTable Table){
         //Configuración Inicial, El usuario crea un archivo con los productos
         //que manejará el restaurante.

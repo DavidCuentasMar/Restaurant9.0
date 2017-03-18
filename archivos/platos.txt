@@ -1,2 +1,5 @@
 Corrientazo de Pollo,7500,Arroz+Carne+Arepa+Lenteja
 Corrientazo de Carne,7500,Arroz+Pollo+Arepa+Lenteja
+Arepa e' Huevo,3000,Arepa+Huevo
+Empanada Bogotana,3000,Arroz+Arepa
+American's Hot Dog,54000,Pan+Salchica

@@ -19,7 +19,7 @@ public class Lista {
         this.inicio=null;
         return inicio;
     }
-    public void agregar(String Name){        
+    public void add(String Name){        
         Nodo p = new Nodo();
         p.setIngrediente(Name);
         if (esVacia()) {            

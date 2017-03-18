@@ -5,9 +5,11 @@
  */
 package controlador;
 
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
+import modelo.Lista;
 import modelo.Restaurant;
 
 /**
@@ -23,13 +25,16 @@ public class Controlador {
         archivo = new Archivo();
 
     }
+    public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
+        archivo.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
     
+    }
     public void CrearArchivoProductos(DefaultTableModel model, JTable Table){
-        restaurant.CrearArchivoProductos(model, Table);
+        archivo.CrearArchivoProductos(model, Table);
     }
     
     public void AgregarLista(String Ingrediente){
-        restaurant.AgregarLista(Ingrediente);
+        restaurant.addIngredienteList(Ingrediente);
     }
 
     public void CrearArchivoPlatos(String name, int price) {

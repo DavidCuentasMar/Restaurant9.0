@@ -1,6 +1,4 @@
 Ingrediente,Arroz,100,0
-Postre,Brownie,100,5000
-Bebida,CocaCola,100,1200
 Ingrediente,Carne,100,0
 Ingrediente,Pollo,100,0
 Ingrediente,Chorizo,100,0
@@ -9,4 +7,15 @@ Ingrediente,Frijol,100,0
 Ingrediente,Lenteja,100,0
 Ingrediente,Huevo,100,0
 Ingrediente,Aguacate,100,0
+Ingrediente,Pan,100,0
+Ingrediente,Salchica,100,0
+Ingrediente,Jamón,100,0
+Ingrediente,Queso,100,0
 Bebida,Agua e' Panela,1000,1000
+Bebida,CocaCola,100,1200
+Bebida,Pepsi,100,1200
+Bebida,Limonada,100,1200
+Bebida,Cerveza,100,1200
+Postre,Brownie,100,5000
+Postre,Helado,150,3200
+Postre,Biscotti,320,7500

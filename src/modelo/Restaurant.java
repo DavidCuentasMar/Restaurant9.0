@@ -23,14 +23,11 @@ public class Restaurant {
         list = new Lista();
         archivo = new Archivo();
     }
-    public void CrearArchivoProductos(DefaultTableModel model, JTable Table){
-        archivo.CrearArchivoProductos(model, Table);
-    }
     public void CrearArchivoPlatos(String name, int price){
         archivo.CrearArchivoPlatos(name, price, this.list);
     }
-    public void AgregarLista(String Ingrediente){
-        list.agregar(Ingrediente);
+    public void addIngredienteList(String Ingrediente){
+        list.add(Ingrediente);
     }
     
     
