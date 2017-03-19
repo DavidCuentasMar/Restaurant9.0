@@ -49,7 +49,6 @@ public class Archivo {
                         Sw = false;
                     }
                     JButton B = new JButton(token);
-
                     platosPanel.add(B);
                     B.setName(token);                    
                 }
@@ -73,7 +72,8 @@ public class Archivo {
                     }                                     
                 }                                             
             }
-            platosPanel.updateUI();
+            
+            
             
         }catch(FileNotFoundException ex){
             

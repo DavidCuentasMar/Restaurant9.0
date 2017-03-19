@@ -6,19 +6,15 @@
 package vista;
 
 import controlador.Controlador;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import javax.swing.JButton;
+import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dacuentas
  */
-public class General extends javax.swing.JFrame {
-
+public class General extends javax.swing.JFrame{
+    boolean ft=true;
     Controlador controlador;
     public General() {
         controlador = new Controlador();
@@ -139,11 +135,11 @@ public class General extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Plato", "Bebida", "Postre", "Precio"
+                "Pedido"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
+                java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -231,12 +227,49 @@ public class General extends javax.swing.JFrame {
             }
         
     }//GEN-LAST:event_BtnPedidosActionPerformed
-
+    private void addToTable(String p){
+        DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
+        model.addRow(new Object[]{p});
+        //abrir archivo, encontrar plato y poner precio.
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         Menu.setVisible(true);
         Menu.setSize(500,320);
         controlador.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
+        if (ft==true) { // para que cuando entren no se dupliquen datos
+            Component[] component = platosPanel.getComponents();
+            for (Component component1 : component) {
+                component1.addMouseListener(new java.awt.event.MouseAdapter(){
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    System.out.println(e.getComponent().getName());
+                    addToTable(e.getComponent().getName());
+                }            
+            });
+            }
+            Component[] component2 = bebidasPanel.getComponents();
+            for (Component component1 : component2) {
+                component1.addMouseListener(new java.awt.event.MouseAdapter(){
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    System.out.println(e.getComponent().getName());
+                    addToTable(e.getComponent().getName());
+                }            
+            });
+            }
+            Component[] component3 = postresPanel.getComponents();
+            for (Component component1 : component3) {
+                component1.addMouseListener(new java.awt.event.MouseAdapter(){
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    System.out.println(e.getComponent().getName());
+                    addToTable(e.getComponent().getName());
+                }            
+            });
+            }
+            ft=false;            
+        }
+        
+        
+        
+        
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -298,4 +331,6 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JPanel platosPanel;
     private javax.swing.JPanel postresPanel;
     // End of variables declaration//GEN-END:variables
+
+
 }
