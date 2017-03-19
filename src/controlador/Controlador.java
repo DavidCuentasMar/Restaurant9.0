@@ -10,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
 import modelo.Lista;
+import modelo.Pedido;
+import modelo.Pedido.Productos;
 import modelo.Restaurant;
 
 /**
@@ -19,11 +21,12 @@ import modelo.Restaurant;
 public class Controlador {
     private Restaurant restaurant;
     private Archivo archivo;
-
+    private Pedido pedido;
+    
     public Controlador() {
         restaurant = new Restaurant();
         archivo = new Archivo();
-
+        pedido = new Pedido();
     }
     public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
         archivo.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
@@ -44,6 +47,10 @@ public class Controlador {
         restaurant.CrearArchivoPlatos(name, price);
     }
     
-    
+    public Productos LLenarList(Productos Ptr,String Producto){
+        Ptr = pedido.LlenarList(Ptr, Producto);
+        return Ptr;
+    }
+  
     
 }

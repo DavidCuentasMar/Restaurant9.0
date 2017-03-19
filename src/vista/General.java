@@ -6,6 +6,7 @@
 package vista;
 
 import controlador.Controlador;
+import modelo.Pedido.Productos;
 import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,12 +21,7 @@ public class General extends javax.swing.JFrame{
         controlador = new Controlador();
         initComponents();
     }
-    public static class Producto{
-        String Dato;
-        int Cant;
-        Producto link;
-    }
-    public static Producto Ptr;
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,53 +237,27 @@ public class General extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     static Producto LlenarList(Producto ptr,String X){
-        Producto p = new Producto();
-        Producto r = ptr;
-        boolean SW = true;
-         while(r != null && SW == true){
-             if (r.Dato.equals(X)) {
-                 SW = false;
-             }else{
-                r = r.link;
-             }
-        }
-        p.Dato = X;
-        p.Cant = 1;
-        if (ptr == null) {
-            ptr = p;
-        }else if(SW != false){
-            Producto q = ptr;
-            while(q.link != null){
-                q = q.link;
-            }
-            q.link = p;
-        }else{
-            r.Cant++;
-        }
-        return ptr;
-    }
-        static void Mostrar(Producto ptr){
-        Producto p = ptr;
+ 
+        static void Mostrar(Productos ptr){
+        Productos p = ptr;
          System.out.println(" ");
         while(p != null){
-            System.out.println(p.Dato+" "+p.Cant);
+            System.out.println(p.Producto+" "+p.Cant);
             p = p.link;
-            
         }
     }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
            // Crear un nuevo escritor
-           Ptr = null;
+           Productos Ptr = null;
            String M = MesaSpinner.getValue().toString();
            String N = MeseroComb.getSelectedItem().toString();
            String P;
             DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
             for (int i = 0; i < TablePedidos.getRowCount(); i++) {
                 P = TablePedidos.getValueAt(i, 0).toString();
-                Ptr = LlenarList(Ptr,P);
+                Ptr = controlador.LLenarList(Ptr, P);
             }
-            
+           
            Mostrar(Ptr);
            for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
                 model.removeRow(i);

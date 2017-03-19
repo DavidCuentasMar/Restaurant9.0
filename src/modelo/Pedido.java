@@ -5,7 +5,6 @@
  */
 package modelo;
 
-import vista.General.Producto;
 
 
 /**
@@ -18,10 +17,43 @@ public class Pedido {
     private int NroMesa;
     private String Camarero;
     private int Total;
+
+    /*public Pedido() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
     
-    public Pedido(int NroPedido,int NroMesa,String Camarero,int Total){
-        
+    public static class Productos{
+        public String Producto;
+        public int Cant;
+        public Productos link;
     }
+    public Productos LlenarList(Productos ptr,String X){
+        Productos p = new Productos();
+        Productos r = ptr;
+        boolean SW = true;
+         while(r != null && SW == true){
+             if (r.Producto.equals(X)) {
+                 SW = false;
+             }else{
+                r = r.link;
+             }
+        }
+        p.Producto = X;
+        p.Cant = 1;
+        if (ptr == null) {
+            ptr = p;
+        }else if(SW != false){
+            Productos q = ptr;
+            while(q.link != null){
+                q = q.link;
+            }
+            q.link = p;
+        }else{
+            r.Cant++;
+        }
+        return ptr;
+    }
+   
     
     
     
