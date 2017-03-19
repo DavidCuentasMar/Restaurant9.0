@@ -27,6 +27,59 @@ import vista.Configuracion;
 public class Archivo {
     Nodo p = new Nodo();
     
+    public void MostrarPrecio(String p, String precio,String ruta, JTable TablePedidos, String type){
+        DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
+        String token = "";
+        File archivo = new File(ruta);
+        try(Scanner lector = new Scanner(archivo)){
+            while(lector.hasNextLine()){
+                String linea = lector.nextLine();
+                StringTokenizer st = new StringTokenizer(linea,",");
+                if (ruta.equals("archivos/platos.txt")) {
+                    boolean Sw = true;
+                    while(Sw){
+                        token = st.nextElement().toString();
+                        if (token.equals(p)) {
+                            token = st.nextElement().toString();
+                            precio = token;
+                            System.out.println(precio);
+                        }
+                        Sw = false;
+                    }        
+                }
+                if (ruta.equals("archivos/productos.txt")) {
+                    boolean Sw = true;
+                    while(Sw){
+                        token = st.nextElement().toString();
+                        if (token.equals("Bebida")) {
+                            token = st.nextElement().toString();
+                            if (p.equals(token)) {
+                                token = st.nextElement().toString();
+                                token = st.nextElement().toString();
+                                precio = token;
+                                System.out.println(precio);
+                            }
+                        }
+                        if (token.equals("Postre")) {
+                            token = st.nextElement().toString();
+                            if (p.equals(token)) {
+                                token = st.nextElement().toString();
+                                token = st.nextElement().toString();
+                                precio = token;
+                                System.out.println(precio);
+                            }
+                        } 
+                        Sw=false;
+                    }                                     
+                }                                             
+            }
+            
+              model.addRow(new Object[]{p,type,precio});
+            
+        }catch(FileNotFoundException ex){
+            
+        }
+    }
     public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
         String platosSrc="archivos/platos.txt";        
         FormarMenu(platosSrc, platosPanel, bebidasPanel, postresPanel);

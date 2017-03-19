@@ -52,8 +52,6 @@ public class General extends javax.swing.JFrame{
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        Menu.setPreferredSize(new java.awt.Dimension(506, 329));
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/platos.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/bebidas.png"))); // NOI18N
@@ -135,11 +133,11 @@ public class General extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Pedido"
+                "Pedido", "Tipo", "Precio"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -227,9 +225,17 @@ public class General extends javax.swing.JFrame{
             }
         
     }//GEN-LAST:event_BtnPedidosActionPerformed
-    private void addToTable(String p){
+    private void addToTable(String p, String type){
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
-        model.addRow(new Object[]{p});
+        String precio ="";
+        String ruta = "";
+        if (type.equals("bebida") || type.equals("postre")) {
+            ruta="archivos/productos.txt";
+        }else{
+            ruta="archivos/platos.txt";
+        }
+        controlador.MostrarPrecio(p, precio,ruta, TablePedidos,type);
+      
         //abrir archivo, encontrar plato y poner precio.
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -242,7 +248,7 @@ public class General extends javax.swing.JFrame{
                 component1.addMouseListener(new java.awt.event.MouseAdapter(){
                 public void mouseClicked(java.awt.event.MouseEvent e) {
                     System.out.println(e.getComponent().getName());
-                    addToTable(e.getComponent().getName());
+                    addToTable(e.getComponent().getName(),"plato");
                 }            
             });
             }
@@ -251,7 +257,7 @@ public class General extends javax.swing.JFrame{
                 component1.addMouseListener(new java.awt.event.MouseAdapter(){
                 public void mouseClicked(java.awt.event.MouseEvent e) {
                     System.out.println(e.getComponent().getName());
-                    addToTable(e.getComponent().getName());
+                    addToTable(e.getComponent().getName(),"bebida");
                 }            
             });
             }
@@ -260,7 +266,7 @@ public class General extends javax.swing.JFrame{
                 component1.addMouseListener(new java.awt.event.MouseAdapter(){
                 public void mouseClicked(java.awt.event.MouseEvent e) {
                     System.out.println(e.getComponent().getName());
-                    addToTable(e.getComponent().getName());
+                    addToTable(e.getComponent().getName(),"postre");
                 }            
             });
             }

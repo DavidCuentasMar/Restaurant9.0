@@ -29,6 +29,9 @@ public class Controlador {
         archivo.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
     
     }
+    public void MostrarPrecio(String p, String precio, String ruta,JTable TablePedidos,String type){
+        archivo.MostrarPrecio(p, precio, ruta, TablePedidos,type);
+    }
     public void CrearArchivoProductos(DefaultTableModel model, JTable Table){
         archivo.CrearArchivoProductos(model, Table);
     }
