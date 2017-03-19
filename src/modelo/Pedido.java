@@ -5,7 +5,8 @@
  */
 package modelo;
 
-import java.util.ArrayList;
+import vista.General.Producto;
+
 
 /**
  *
@@ -13,34 +14,16 @@ import java.util.ArrayList;
  */
 
 public class Pedido {
+    private int NroPedido;
+    private int NroMesa;
+    private String Camarero;
+    private int Total;
     
-    public static class Pedidos{
-        String Plato;
-        String Bebida;
-        String Postre;
-        int NroMesa;
-        int Mesero;
-        Pedidos link;
+    public Pedido(int NroPedido,int NroMesa,String Camarero,int Total){
+        
     }
-    public static Pedidos ptr = null;
     
-    public static Pedidos AgregarPedido(Pedidos ptr,String Plato,String Bebida, String Postre, int NroMesa, int Mesero){
-        Pedidos p = new Pedidos();
-        p.Plato = Plato;
-        p.Bebida = Bebida;
-        p.Postre = Postre;
-        p.NroMesa = NroMesa;
-        p.Mesero = Mesero;
-        if (ptr == null) {
-            ptr = p;
-        }else{
-            Pedidos q = ptr;
-            while (q.link != null) {                
-                q = q.link;
-            }
-            q.link = p;
-        }
-        return ptr;
-    }
+    
+    
   
 }

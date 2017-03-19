@@ -20,7 +20,12 @@ public class General extends javax.swing.JFrame{
         controlador = new Controlador();
         initComponents();
     }
-
+    public static class Producto{
+        String Dato;
+        int Cant;
+        Producto link;
+    }
+    public static Producto Ptr;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +47,9 @@ public class General extends javax.swing.JFrame{
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane5 = new javax.swing.JScrollPane();
         bebidasPanel = new javax.swing.JPanel();
+        Cocina = new javax.swing.JFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableCocina = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         MeseroComb = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -111,6 +119,33 @@ public class General extends javax.swing.JFrame{
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        TableCocina.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pedido", "Mesa", "Camarero", "Plato", "Bebida", "Postre"
+            }
+        ));
+        jScrollPane3.setViewportView(TableCocina);
+
+        javax.swing.GroupLayout CocinaLayout = new javax.swing.GroupLayout(Cocina.getContentPane());
+        Cocina.getContentPane().setLayout(CocinaLayout);
+        CocinaLayout.setHorizontalGroup(
+            CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CocinaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        CocinaLayout.setVerticalGroup(
+            CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CocinaLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Mesero:");
@@ -178,7 +213,7 @@ public class General extends javax.swing.JFrame{
                             .addComponent(MesaSpinner))
                         .addGap(57, 57, 57)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -206,30 +241,65 @@ public class General extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+     static Producto LlenarList(Producto ptr,String X){
+        Producto p = new Producto();
+        Producto r = ptr;
+        boolean SW = true;
+         while(r != null && SW == true){
+             if (r.Dato.equals(X)) {
+                 SW = false;
+             }else{
+                r = r.link;
+             }
+        }
+        p.Dato = X;
+        p.Cant = 1;
+        if (ptr == null) {
+            ptr = p;
+        }else if(SW != false){
+            Producto q = ptr;
+            while(q.link != null){
+                q = q.link;
+            }
+            q.link = p;
+        }else{
+            r.Cant++;
+        }
+        return ptr;
+    }
+        static void Mostrar(Producto ptr){
+        Producto p = ptr;
+         System.out.println(" ");
+        while(p != null){
+            System.out.println(p.Dato+" "+p.Cant);
+            p = p.link;
+            
+        }
+    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
            // Crear un nuevo escritor
-            // Hallamos el numero de filas
-            int filas = TablePedidos.getRowCount();
-            
-            // Tomamos el modelo
+           Ptr = null;
+           String M = MesaSpinner.getValue().toString();
+           String N = MeseroComb.getSelectedItem().toString();
+           String P;
             DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
-            
-            for(int i = 0; i < filas; ++i) {
-                String plato = model.getValueAt(i, 0).toString();
-                String Bebida = model.getValueAt(i, 1).toString();
-                String Postre = model.getValueAt(i, 2).toString();
-                Object Precio = model.getValueAt(i, 3);
-            
+            for (int i = 0; i < TablePedidos.getRowCount(); i++) {
+                P = TablePedidos.getValueAt(i, 0).toString();
+                Ptr = LlenarList(Ptr,P);
             }
-        
+            
+           Mostrar(Ptr);
+           for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
+                model.removeRow(i);
+                i-=1;
+            }
+           TablePedidos.setModel(model);
     }//GEN-LAST:event_BtnPedidosActionPerformed
     private void addToTable(String p, String type){
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
         String precio ="";
         String ruta = "";
-        if (type.equals("bebida") || type.equals("postre")) {
+        if (type.equals("Bebida") || type.equals("Postre")) {
             ruta="archivos/productos.txt";
         }else{
             ruta="archivos/platos.txt";
@@ -247,8 +317,7 @@ public class General extends javax.swing.JFrame{
             for (Component component1 : component) {
                 component1.addMouseListener(new java.awt.event.MouseAdapter(){
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    System.out.println(e.getComponent().getName());
-                    addToTable(e.getComponent().getName(),"plato");
+                    addToTable(e.getComponent().getName(),"Plato");
                 }            
             });
             }
@@ -256,8 +325,7 @@ public class General extends javax.swing.JFrame{
             for (Component component1 : component2) {
                 component1.addMouseListener(new java.awt.event.MouseAdapter(){
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    System.out.println(e.getComponent().getName());
-                    addToTable(e.getComponent().getName(),"bebida");
+                    addToTable(e.getComponent().getName(),"Bebida");
                 }            
             });
             }
@@ -265,8 +333,7 @@ public class General extends javax.swing.JFrame{
             for (Component component1 : component3) {
                 component1.addMouseListener(new java.awt.event.MouseAdapter(){
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    System.out.println(e.getComponent().getName());
-                    addToTable(e.getComponent().getName(),"postre");
+                    addToTable(e.getComponent().getName(),"Postre");
                 }            
             });
             }
@@ -316,9 +383,11 @@ public class General extends javax.swing.JFrame{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnPedidos;
+    private javax.swing.JFrame Cocina;
     private javax.swing.JFrame Menu;
     private javax.swing.JSpinner MesaSpinner;
     private javax.swing.JComboBox<String> MeseroComb;
+    private javax.swing.JTable TableCocina;
     private javax.swing.JTable TablePedidos;
     private javax.swing.JPanel bebidasPanel;
     private javax.swing.JButton jButton1;
@@ -330,6 +399,7 @@ public class General extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;

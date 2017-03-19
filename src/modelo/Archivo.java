@@ -42,7 +42,6 @@ public class Archivo {
                         if (token.equals(p)) {
                             token = st.nextElement().toString();
                             precio = token;
-                            System.out.println(precio);
                         }
                         Sw = false;
                     }        
@@ -57,7 +56,6 @@ public class Archivo {
                                 token = st.nextElement().toString();
                                 token = st.nextElement().toString();
                                 precio = token;
-                                System.out.println(precio);
                             }
                         }
                         if (token.equals("Postre")) {
@@ -66,7 +64,6 @@ public class Archivo {
                                 token = st.nextElement().toString();
                                 token = st.nextElement().toString();
                                 precio = token;
-                                System.out.println(precio);
                             }
                         } 
                         Sw=false;
