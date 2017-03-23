@@ -9,22 +9,24 @@ import controlador.Controlador;
 import modelo.ListaProducto;
 import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
-import modelo.Pedido;
-import modelo.Producto;
+import modelo.*;
 
 /**
  *
  * @author dacuentas
  */
-public class General extends javax.swing.JFrame{
-    boolean ft=true;
+public class General extends javax.swing.JFrame {
+
+    boolean ft = true;
     Controlador controlador;
+
     public General() {
         controlador = new Controlador();
         initComponents();
     }
     ListaProducto Ptr;
     int NroPedido = 1;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -290,7 +292,7 @@ public class General extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- 
+
 //        static void Mostrar(Producto ptr){
 //        Producto p = ptr;
 //         System.out.println(" ");
@@ -300,81 +302,81 @@ public class General extends javax.swing.JFrame{
 //        }
 //    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
-           ListaProducto lp = new ListaProducto();
-           String numeroMesa = MesaSpinner.getValue().toString();
-           String numeroMesero = MeseroComb.getSelectedItem().toString();
-           Object[] Row = new Object[7];
-           String nombreProducto,tipoProducto;
-            DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
-            for (int i = 0; i < TablePedidos.getRowCount(); i++) {
-                nombreProducto = TablePedidos.getValueAt(i, 0).toString();
-                tipoProducto = TablePedidos.getValueAt(i,1).toString();
-                Producto p = new Producto(nombreProducto,tipoProducto);
-                lp.LlenarList(p);
-           }
-           Pedido p = new Pedido(NroPedido,numeroMesa,numeroMesero,lp);
-           p.showPedidoList();
-           DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
-           Row[0] = NroPedido;
-           Row[1] = "En espera";
-
-           modelo.addRow(Row);
-           for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
-                model.removeRow(i);
-                i-=1;
-            }
-           TablePedidos.setModel(model);
-           NroPedido++;
-    }//GEN-LAST:event_BtnPedidosActionPerformed
-    private void addToTable(String p, String type){
+        ListaProducto lp = new ListaProducto();
+        String numeroMesa = MesaSpinner.getValue().toString();
+        String numeroMesero = MeseroComb.getSelectedItem().toString();
+        Object[] Row = new Object[7];
+        String nombreProducto, tipoProducto;
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
-        String precio ="";
+        for (int i = 0; i < TablePedidos.getRowCount(); i++) {
+            nombreProducto = TablePedidos.getValueAt(i, 0).toString();
+            tipoProducto = TablePedidos.getValueAt(i, 1).toString();
+            Producto p = new Producto(nombreProducto, tipoProducto);
+            lp.LlenarList(p);
+        }
+        Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
+        p.showPedidoList();
+        ListaPedido h = new ListaPedido();
+        h.LlenarList(p);
+        h.showList();
+        DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
+        Row[0] = NroPedido;
+        Row[1] = "En espera";
+
+        modelo.addRow(Row);
+        for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
+            model.removeRow(i);
+            i -= 1;
+        }
+        TablePedidos.setModel(model);
+        NroPedido++;
+    }//GEN-LAST:event_BtnPedidosActionPerformed
+    private void addToTable(String p, String type) {
+        DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
+        String precio = "";
         String ruta = "";
         if (type.equals("Bebida") || type.equals("Postre")) {
-            ruta="archivos/productos.txt";
-        }else{
-            ruta="archivos/platos.txt";
+            ruta = "archivos/productos.txt";
+        } else {
+            ruta = "archivos/platos.txt";
         }
-        controlador.MostrarPrecio(p, precio,ruta, TablePedidos,type);
-      
+        controlador.MostrarPrecio(p, precio, ruta, TablePedidos, type);
+
         //abrir archivo, encontrar plato y poner precio.
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Menu.setVisible(true);
-        Menu.setSize(500,320);
-        controlador.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
-        if (ft==true) { // para que cuando entren no se dupliquen datos
+        Menu.setSize(500, 320);
+        controlador.MostrarMenu(platosPanel, bebidasPanel, postresPanel);
+        if (ft == true) { // para que cuando entren no se dupliquen datos
             Component[] component = platosPanel.getComponents();
             for (Component component1 : component) {
-                component1.addMouseListener(new java.awt.event.MouseAdapter(){
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    addToTable(e.getComponent().getName(),"Plato");
-                }            
-            });
+                component1.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent e) {
+                        addToTable(e.getComponent().getName(), "Plato");
+                    }
+                });
             }
             Component[] component2 = bebidasPanel.getComponents();
             for (Component component1 : component2) {
-                component1.addMouseListener(new java.awt.event.MouseAdapter(){
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    addToTable(e.getComponent().getName(),"Bebida");
-                }            
-            });
+                component1.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent e) {
+                        addToTable(e.getComponent().getName(), "Bebida");
+                    }
+                });
             }
             Component[] component3 = postresPanel.getComponents();
             for (Component component1 : component3) {
-                component1.addMouseListener(new java.awt.event.MouseAdapter(){
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    addToTable(e.getComponent().getName(),"Postre");
-                }            
-            });
+                component1.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent e) {
+                        addToTable(e.getComponent().getName(), "Postre");
+                    }
+                });
             }
-            ft=false;            
+            ft = false;
         }
-        
-        
-        
-        
-       
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void MeseroCombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroCombActionPerformed
@@ -393,7 +395,7 @@ public class General extends javax.swing.JFrame{
     private void BtnMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMakeActionPerformed
 
         int row = TableCocina.getSelectedRow();
-        TableCocina.setValueAt("Realizado",row,1);
+        TableCocina.setValueAt("Realizado", row, 1);
 
     }//GEN-LAST:event_BtnMakeActionPerformed
 
@@ -460,6 +462,5 @@ public class General extends javax.swing.JFrame{
     private javax.swing.JPanel platosPanel;
     private javax.swing.JPanel postresPanel;
     // End of variables declaration//GEN-END:variables
-
 
 }

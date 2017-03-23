@@ -12,11 +12,13 @@ package modelo;
  * @author pollo4053
  */
 
+
 public class Pedido {
     public int NroPedido;
     public String Mesa;
     public String Camarero;
-    private ListaProducto productos;
+    private static ListaProducto productos;
+
 
     public Pedido(int NroPedido, String Mesa, String Camarero, ListaProducto productos) {
         this.NroPedido = NroPedido;
@@ -26,6 +28,22 @@ public class Pedido {
     }
     public void showPedidoList(){
         productos.showList();
+    }
+
+    public static ListaProducto getProductos() {
+        return productos;
+    }
+
+    public int getNroPedido() {
+        return NroPedido;
+    }
+
+    public String getMesa() {
+        return Mesa;
+    }
+
+    public String getCamarero() {
+        return Camarero;
     }
     
     
