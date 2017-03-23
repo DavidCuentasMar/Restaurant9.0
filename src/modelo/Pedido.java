@@ -24,7 +24,9 @@ public class Pedido {
         this.Camarero = Camarero;
         this.productos = productos;
     }
-    
+    public void showPedidoList(){
+        productos.showList();
+    }
     
     
     

@@ -15,8 +15,14 @@ public class ListaProducto {
     public ListaProducto() {
         this.ptr = null;
     }
-     
-    public Producto LlenarList(Producto p){
+    public void showList(){
+        Producto p = ptr;
+        while(p!=null){
+            System.out.println(p.getName());
+            p=p.getLink();
+        }
+    }
+    public void LlenarList(Producto p){
         Producto k = this.ptr;
         if (k == null) {
             this.ptr = p;
@@ -27,7 +33,6 @@ public class ListaProducto {
             }
             q.setLink(p);
         }        
-        return ptr;
     }
 
     public Producto getPtr() {

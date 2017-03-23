@@ -272,8 +272,8 @@ public class General extends javax.swing.JFrame{
 //    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
            ListaProducto lp = new ListaProducto();
-           String M = MesaSpinner.getValue().toString();
-           String N = MeseroComb.getSelectedItem().toString();
+           String numeroMesa = MesaSpinner.getValue().toString();
+           String numeroMesero = MeseroComb.getSelectedItem().toString();
            Object[] Row = new Object[7];
            String nombreProducto,tipoProducto;
             DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
@@ -281,14 +281,12 @@ public class General extends javax.swing.JFrame{
                 nombreProducto = TablePedidos.getValueAt(i, 0).toString();
                 tipoProducto = TablePedidos.getValueAt(i,1).toString();
                 Producto p = new Producto(nombreProducto,tipoProducto);
-//                lp = lp.LlenarList(p);
-//                Ptr = controlador.LLenarList(Ptr, P,T,NroPedido,M,N);
-                
-                
-            }
-//           Pedido p = new Pedido(NroPedido,M,N,);
+                lp.LlenarList(p);
+           }
+           Pedido p = new Pedido(NroPedido,numeroMesa,numeroMesero,lp);
+           p.showPedidoList();
            DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
-//           Row[0] = NroPedido;
+           Row[0] = NroPedido;
 //           Row[1] = controlador.GetMesa(Ptr, NroPedido);
 //           Row[2] = controlador.GetCamarero(Ptr, NroPedido);
 //           Row[3] = controlador.GetPlato(Ptr, NroPedido);
