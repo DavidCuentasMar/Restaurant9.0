@@ -87,6 +87,8 @@ public class Archivo {
     }
     public void FormarMenu(String ruta, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
     String token = "";
+    String p="";
+    String c="";
         File archivo = new File(ruta);
         try(Scanner lector = new Scanner(archivo)){
             while(lector.hasNextLine()){
@@ -96,9 +98,11 @@ public class Archivo {
                     boolean Sw = true;
                     while(Sw){
                         token = st.nextElement().toString();
+                        p = st.nextElement().toString();
                         Sw = false;
                     }
-                    JButton B = new JButton(token);
+                    c = token+" $"+p;
+                    JButton B = new JButton(c);
                     platosPanel.add(B);
                     B.setName(token);                    
                 }
@@ -108,13 +112,19 @@ public class Archivo {
                         token = st.nextElement().toString();
                         if (token.equals("Bebida")) {
                             token = st.nextElement().toString();
-                            JButton B = new JButton(token);
+                            p = st.nextElement().toString();
+                            p = st.nextElement().toString();
+                            c = token+" $"+p;
+                            JButton B = new JButton(c);
                             bebidasPanel.add(B);
                             B.setName(token);                               
                         }
                         if (token.equals("Postre")) {
                             token = st.nextElement().toString();
-                            JButton B = new JButton(token);
+                            p = st.nextElement().toString();
+                            p = st.nextElement().toString();
+                            c = token+" $"+p;
+                            JButton B = new JButton(c);
                             postresPanel.add(B);
                             B.setName(token);                            
                         } 

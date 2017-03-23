@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
 import modelo.Lista;
 import modelo.Pedido;
-import modelo.Pedido.Productos;
+import modelo.Producto;
 import modelo.Restaurant;
 
 /**
@@ -21,12 +21,11 @@ import modelo.Restaurant;
 public class Controlador {
     private Restaurant restaurant;
     private Archivo archivo;
-    private Pedido pedido;
-    
+    private Producto producto;
     public Controlador() {
         restaurant = new Restaurant();
         archivo = new Archivo();
-        pedido = new Pedido();
+        producto = new Producto();
     }
     public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
         archivo.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
@@ -47,10 +46,25 @@ public class Controlador {
         restaurant.CrearArchivoPlatos(name, price);
     }
     
-    public Productos LLenarList(Productos Ptr,String Producto){
-        Ptr = pedido.LlenarList(Ptr, Producto);
+    public Producto LLenarList(Producto Ptr,String Producto,String Tipo,int NroPedido,String Mesa, String Camarero){
+        Ptr = producto.LlenarList(Ptr, Producto,Tipo,NroPedido,Mesa,Camarero);
         return Ptr;
     }
-  
+    
+    public String GetMesa(Producto Ptr,int NumeroPedido){
+       return producto.GetMesa(Ptr, NumeroPedido);
+    }
+    public String GetCamarero(Producto Ptr,int NumeroPedido){
+        return producto.GetCamarero(Ptr, NumeroPedido);
+    }
+    public String GetPlato(Producto Ptr,int NumeroPedido){
+        return producto.GetPlato(Ptr, NumeroPedido);
+    }
+    public String GetBebida(Producto Ptr,int NumeroPedido){
+        return producto.GetBebida(Ptr, NumeroPedido);
+    }
+    public String GetPostre(Producto Ptr,int NumeroPedido){
+        return producto.GetPostre(Ptr, NumeroPedido);
+    }
     
 }

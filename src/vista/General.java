@@ -6,9 +6,11 @@
 package vista;
 
 import controlador.Controlador;
-import modelo.Pedido.Productos;
+import modelo.Producto;
 import java.awt.Component;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -21,7 +23,8 @@ public class General extends javax.swing.JFrame{
         controlador = new Controlador();
         initComponents();
     }
-   
+    Producto Ptr;
+    int NroPedido = 1;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +49,7 @@ public class General extends javax.swing.JFrame{
         Cocina = new javax.swing.JFrame();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableCocina = new javax.swing.JTable();
+        BtnMake = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         MeseroComb = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -53,7 +57,7 @@ public class General extends javax.swing.JFrame{
         BtnPedidos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablePedidos = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
+        JKitchen = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/platos.png"))); // NOI18N
@@ -120,10 +124,17 @@ public class General extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Pedido", "Mesa", "Camarero", "Plato", "Bebida", "Postre"
+                "Pedido", "Mesa", "Camarero", "Plato", "Bebida", "Postre", "Estado"
             }
         ));
         jScrollPane3.setViewportView(TableCocina);
+
+        BtnMake.setText("Crear Plato");
+        BtnMake.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMakeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CocinaLayout = new javax.swing.GroupLayout(Cocina.getContentPane());
         Cocina.getContentPane().setLayout(CocinaLayout);
@@ -131,15 +142,21 @@ public class General extends javax.swing.JFrame{
             CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CocinaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(CocinaLayout.createSequentialGroup()
+                .addGap(361, 361, 361)
+                .addComponent(BtnMake, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CocinaLayout.setVerticalGroup(
             CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CocinaLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(CocinaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnMake, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -177,7 +194,12 @@ public class General extends javax.swing.JFrame{
         });
         jScrollPane2.setViewportView(TablePedidos);
 
-        jButton3.setText("Ver Cocina");
+        JKitchen.setText("Ver Cocina");
+        JKitchen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JKitchenActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu.png"))); // NOI18N
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -198,7 +220,7 @@ public class General extends javax.swing.JFrame{
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnPedidos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
+                        .addComponent(JKitchen))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -231,39 +253,50 @@ public class General extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnPedidos)
-                    .addComponent(jButton3))
+                    .addComponent(JKitchen))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
  
-        static void Mostrar(Productos ptr){
-        Productos p = ptr;
-         System.out.println(" ");
-        while(p != null){
-            System.out.println(p.Producto+" "+p.Cant);
-            p = p.link;
-        }
-    }
+//        static void Mostrar(Producto ptr){
+//        Producto p = ptr;
+//         System.out.println(" ");
+//        while(p != null){
+//            System.out.println(p.Producto+" "+p.Cant+" "+p.Tipo+" "+p.NroPedid);
+//            p = p.link;
+//        }
+//    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
-           // Crear un nuevo escritor
-           Productos Ptr = null;
+           Ptr = null;
            String M = MesaSpinner.getValue().toString();
            String N = MeseroComb.getSelectedItem().toString();
-           String P;
+           Object[] Row = new Object[7];
+           String P,T;
             DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
             for (int i = 0; i < TablePedidos.getRowCount(); i++) {
                 P = TablePedidos.getValueAt(i, 0).toString();
-                Ptr = controlador.LLenarList(Ptr, P);
+                T = TablePedidos.getValueAt(i,1).toString();
+                Ptr = controlador.LLenarList(Ptr, P,T,NroPedido,M,N);
             }
-           
-           Mostrar(Ptr);
+            
+           DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
+           Row[0] = NroPedido;
+           Row[1] = controlador.GetMesa(Ptr, NroPedido);
+           Row[2] = controlador.GetCamarero(Ptr, NroPedido);
+           Row[3] = controlador.GetPlato(Ptr, NroPedido);
+           Row[4] = controlador.GetBebida(Ptr, NroPedido);
+           Row[5] = controlador.GetPostre(Ptr, NroPedido);
+           Row[6] = "En espera";
+            
+           modelo.addRow(Row);
            for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
                 model.removeRow(i);
                 i-=1;
             }
            TablePedidos.setModel(model);
+           NroPedido++;
     }//GEN-LAST:event_BtnPedidosActionPerformed
     private void addToTable(String p, String type){
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
@@ -316,6 +349,16 @@ public class General extends javax.swing.JFrame{
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void JKitchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JKitchenActionPerformed
+        // TODO add your handling code here:
+        Cocina.setVisible(true);
+        Cocina.setSize(800,420);
+    }//GEN-LAST:event_JKitchenActionPerformed
+
+    private void BtnMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMakeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnMakeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -352,8 +395,10 @@ public class General extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnMake;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JFrame Cocina;
+    private javax.swing.JButton JKitchen;
     private javax.swing.JFrame Menu;
     private javax.swing.JSpinner MesaSpinner;
     private javax.swing.JComboBox<String> MeseroComb;
@@ -361,7 +406,6 @@ public class General extends javax.swing.JFrame{
     private javax.swing.JTable TablePedidos;
     private javax.swing.JPanel bebidasPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
