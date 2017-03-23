@@ -13,7 +13,19 @@ package modelo;
  */
 
 public class Pedido {
+    public int NroPedido;
+    public String Mesa;
+    public String Camarero;
+    private ListaProducto productos;
+
+    public Pedido(int NroPedido, String Mesa, String Camarero, ListaProducto productos) {
+        this.NroPedido = NroPedido;
+        this.Mesa = Mesa;
+        this.Camarero = Camarero;
+        this.productos = productos;
+    }
     
     
-  
+    
+    
 }

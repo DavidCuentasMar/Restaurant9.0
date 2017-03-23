@@ -6,11 +6,13 @@
 package vista;
 
 import controlador.Controlador;
-import modelo.Producto;
+import modelo.ListaProducto;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import modelo.Pedido;
+import modelo.Producto;
 
 /**
  *
@@ -23,7 +25,7 @@ public class General extends javax.swing.JFrame{
         controlador = new Controlador();
         initComponents();
     }
-    Producto Ptr;
+    ListaProducto Ptr;
     int NroPedido = 1;
     /**
      * This method is called from within the constructor to initialize the form.
@@ -269,26 +271,30 @@ public class General extends javax.swing.JFrame{
 //        }
 //    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
-           Ptr = null;
+           ListaProducto lp = new ListaProducto();
            String M = MesaSpinner.getValue().toString();
            String N = MeseroComb.getSelectedItem().toString();
            Object[] Row = new Object[7];
-           String P,T;
+           String nombreProducto,tipoProducto;
             DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
             for (int i = 0; i < TablePedidos.getRowCount(); i++) {
-                P = TablePedidos.getValueAt(i, 0).toString();
-                T = TablePedidos.getValueAt(i,1).toString();
-                Ptr = controlador.LLenarList(Ptr, P,T,NroPedido,M,N);
+                nombreProducto = TablePedidos.getValueAt(i, 0).toString();
+                tipoProducto = TablePedidos.getValueAt(i,1).toString();
+                Producto p = new Producto(nombreProducto,tipoProducto);
+//                lp = lp.LlenarList(p);
+//                Ptr = controlador.LLenarList(Ptr, P,T,NroPedido,M,N);
+                
+                
             }
-            
+//           Pedido p = new Pedido(NroPedido,M,N,);
            DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
-           Row[0] = NroPedido;
-           Row[1] = controlador.GetMesa(Ptr, NroPedido);
-           Row[2] = controlador.GetCamarero(Ptr, NroPedido);
-           Row[3] = controlador.GetPlato(Ptr, NroPedido);
-           Row[4] = controlador.GetBebida(Ptr, NroPedido);
-           Row[5] = controlador.GetPostre(Ptr, NroPedido);
-           Row[6] = "En espera";
+//           Row[0] = NroPedido;
+//           Row[1] = controlador.GetMesa(Ptr, NroPedido);
+//           Row[2] = controlador.GetCamarero(Ptr, NroPedido);
+//           Row[3] = controlador.GetPlato(Ptr, NroPedido);
+//           Row[4] = controlador.GetBebida(Ptr, NroPedido);
+//           Row[5] = controlador.GetPostre(Ptr, NroPedido);
+//           Row[6] = "En espera";
             
            modelo.addRow(Row);
            for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla

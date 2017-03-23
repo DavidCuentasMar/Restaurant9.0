@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
 import modelo.Lista;
 import modelo.Pedido;
-import modelo.Producto;
+import modelo.ListaProducto;
 import modelo.Restaurant;
 
 /**
@@ -21,11 +21,11 @@ import modelo.Restaurant;
 public class Controlador {
     private Restaurant restaurant;
     private Archivo archivo;
-    private Producto producto;
+    private ListaProducto producto;
     public Controlador() {
         restaurant = new Restaurant();
         archivo = new Archivo();
-        producto = new Producto();
+        producto = new ListaProducto();
     }
     public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
         archivo.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
@@ -46,25 +46,25 @@ public class Controlador {
         restaurant.CrearArchivoPlatos(name, price);
     }
     
-    public Producto LLenarList(Producto Ptr,String Producto,String Tipo,int NroPedido,String Mesa, String Camarero){
-        Ptr = producto.LlenarList(Ptr, Producto,Tipo,NroPedido,Mesa,Camarero);
-        return Ptr;
-    }
-    
-    public String GetMesa(Producto Ptr,int NumeroPedido){
-       return producto.GetMesa(Ptr, NumeroPedido);
-    }
-    public String GetCamarero(Producto Ptr,int NumeroPedido){
-        return producto.GetCamarero(Ptr, NumeroPedido);
-    }
-    public String GetPlato(Producto Ptr,int NumeroPedido){
-        return producto.GetPlato(Ptr, NumeroPedido);
-    }
-    public String GetBebida(Producto Ptr,int NumeroPedido){
-        return producto.GetBebida(Ptr, NumeroPedido);
-    }
-    public String GetPostre(Producto Ptr,int NumeroPedido){
-        return producto.GetPostre(Ptr, NumeroPedido);
-    }
+//    public ListaProducto LLenarList(ListaProducto Ptr,String Producto,String Tipo,int NroPedido,String Mesa, String Camarero){
+//        Ptr = producto.LlenarList(Ptr, Producto,Tipo,NroPedido,Mesa,Camarero);
+//        return Ptr;
+//    }
+//    
+//    public String GetMesa(ListaProducto Ptr,int NumeroPedido){
+//       return producto.GetMesa(Ptr, NumeroPedido);
+//    }
+//    public String GetCamarero(ListaProducto Ptr,int NumeroPedido){
+//        return producto.GetCamarero(Ptr, NumeroPedido);
+//    }
+//    public String GetPlato(ListaProducto Ptr,int NumeroPedido){
+//        return producto.GetPlato(Ptr, NumeroPedido);
+//    }
+//    public String GetBebida(ListaProducto Ptr,int NumeroPedido){
+//        return producto.GetBebida(Ptr, NumeroPedido);
+//    }
+//    public String GetPostre(ListaProducto Ptr,int NumeroPedido){
+//        return producto.GetPostre(Ptr, NumeroPedido);
+//    }
     
 }
