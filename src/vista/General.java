@@ -8,9 +8,7 @@ package vista;
 import controlador.Controlador;
 import modelo.ListaProducto;
 import java.awt.Component;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import modelo.Pedido;
 import modelo.Producto;
 
@@ -52,6 +50,7 @@ public class General extends javax.swing.JFrame{
         jScrollPane3 = new javax.swing.JScrollPane();
         TableCocina = new javax.swing.JTable();
         BtnMake = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         MeseroComb = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -126,15 +125,37 @@ public class General extends javax.swing.JFrame{
 
             },
             new String [] {
-                "Pedido", "Mesa", "Camarero", "Plato", "Bebida", "Postre", "Estado"
+                "Pedido", "Estado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(TableCocina);
 
-        BtnMake.setText("Crear Plato");
+        BtnMake.setText("Realizar Pedido");
         BtnMake.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnMakeActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Información del Pedido");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -142,23 +163,26 @@ public class General extends javax.swing.JFrame{
         Cocina.getContentPane().setLayout(CocinaLayout);
         CocinaLayout.setHorizontalGroup(
             CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CocinaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(CocinaLayout.createSequentialGroup()
-                .addGap(361, 361, 361)
-                .addComponent(BtnMake, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnMake, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CocinaLayout.setVerticalGroup(
             CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CocinaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BtnMake, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(CocinaLayout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnMake)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +190,11 @@ public class General extends javax.swing.JFrame{
         jLabel1.setText("Mesero:");
 
         MeseroComb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mesero 1", "Mesero 2", "Mesero 3", "Mesero 4" }));
+        MeseroComb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MeseroCombActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Mesa:");
 
@@ -287,13 +316,8 @@ public class General extends javax.swing.JFrame{
            p.showPedidoList();
            DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
            Row[0] = NroPedido;
-//           Row[1] = controlador.GetMesa(Ptr, NroPedido);
-//           Row[2] = controlador.GetCamarero(Ptr, NroPedido);
-//           Row[3] = controlador.GetPlato(Ptr, NroPedido);
-//           Row[4] = controlador.GetBebida(Ptr, NroPedido);
-//           Row[5] = controlador.GetPostre(Ptr, NroPedido);
-//           Row[6] = "En espera";
-            
+           Row[1] = "En espera";
+
            modelo.addRow(Row);
            for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
                 model.removeRow(i);
@@ -353,14 +377,24 @@ public class General extends javax.swing.JFrame{
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void MeseroCombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroCombActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MeseroCombActionPerformed
+
     private void JKitchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JKitchenActionPerformed
         // TODO add your handling code here:
-        Cocina.setVisible(true);
-        Cocina.setSize(800,420);
     }//GEN-LAST:event_JKitchenActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int row = TableCocina.getSelectedRow();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void BtnMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMakeActionPerformed
-        // TODO add your handling code here:
+
+        int row = TableCocina.getSelectedRow();
+        TableCocina.setValueAt("Realizado",row,1);
+
     }//GEN-LAST:event_BtnMakeActionPerformed
 
     /**
@@ -410,6 +444,7 @@ public class General extends javax.swing.JFrame{
     private javax.swing.JTable TablePedidos;
     private javax.swing.JPanel bebidasPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
