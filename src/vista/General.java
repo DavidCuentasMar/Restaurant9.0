@@ -417,19 +417,19 @@ public class General extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_JKitchenActionPerformed
 
     private void infoPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoPedidoBtnActionPerformed
-        int row = TableCocina.getSelectedRow();
-        System.out.println("No.Pedido: " + TableCocina.getValueAt(row, 0).toString());
-        System.out.println("No.Mesa: " + TableCocina.getValueAt(row, 1).toString());
-        Pedido p = controlador.findPedido(TableCocina.getValueAt(row, 0).toString());
-//        p.showPedidoList();
-        String productosTxt = p.getProductosTxt();
-        System.out.println("------\n" + productosTxt);
-        JOptionPane.showMessageDialog(this,
-                "No.Pedido: " + TableCocina.getValueAt(row, 0).toString()
-                + "\nNo.Mesa: " + TableCocina.getValueAt(row, 1).toString()
-                + "\n----------\n" + productosTxt);
-
-
+        if (TableCocina.getSelectedRow()!=-1) {
+            int row = TableCocina.getSelectedRow();
+            System.out.println("No.Pedido: " + TableCocina.getValueAt(row, 0).toString());
+            System.out.println("No.Mesa: " + TableCocina.getValueAt(row, 1).toString());
+            Pedido p = controlador.findPedido(TableCocina.getValueAt(row, 0).toString());
+    //        p.showPedidoList();
+            String productosTxt = p.getProductosTxt();
+            System.out.println("------\n" + productosTxt);
+            JOptionPane.showMessageDialog(this,
+                    "No.Pedido: " + TableCocina.getValueAt(row, 0).toString()
+                    + "\nNo.Mesa: " + TableCocina.getValueAt(row, 1).toString()
+                    + "\n----------\n" + productosTxt);            
+        }        
     }//GEN-LAST:event_infoPedidoBtnActionPerformed
 
     private void BtnCocinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCocinarActionPerformed
