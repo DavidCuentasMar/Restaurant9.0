@@ -18,22 +18,27 @@ import modelo.*;
  *
  * @author dacuentas
  */
-public class General extends javax.swing.JFrame {
+public class General extends javax.swing.JFrame implements Runnable {
+
     int x = 10;
     int y = 10;
+    int NroPedido = 1;
     boolean ft = true;
+    private int seg = 0;
+    private boolean continuar = true;
+    private Time i;
     Controlador controlador;
-
     public void setFt(boolean ft) {
         this.ft = ft;
     }
-    
+
     public General() {
-        
         controlador = new Controlador();
         initComponents();
+        TextSeg.setText(String.valueOf(seg));
+        BtnCocinar.setEnabled(true);
     }
-    int NroPedido = 1;
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,7 +65,8 @@ public class General extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         TableCocina = new javax.swing.JTable();
         infoPedidoBtn = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        BtnCocinar = new javax.swing.JButton();
+        TextSeg = new javax.swing.JTextField();
         infoPedido = new javax.swing.JFrame();
         jLabel1 = new javax.swing.JLabel();
         MeseroComb = new javax.swing.JComboBox<>();
@@ -136,11 +142,11 @@ public class General extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No.Pedido", "No.Mesa", ""
+                "No.Pedido", "No.Mesa", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,9 +154,6 @@ public class General extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(TableCocina);
-        if (TableCocina.getColumnModel().getColumnCount() > 0) {
-            TableCocina.getColumnModel().getColumn(2).setMaxWidth(1);
-        }
 
         infoPedidoBtn.setText("Info. Pedido");
         infoPedidoBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -159,7 +162,12 @@ public class General extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Cocinar");
+        BtnCocinar.setText("Cocinar");
+        BtnCocinar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCocinarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CocinaLayout = new javax.swing.GroupLayout(Cocina.getContentPane());
         Cocina.getContentPane().setLayout(CocinaLayout);
@@ -168,10 +176,15 @@ public class General extends javax.swing.JFrame {
             .addGroup(CocinaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(infoPedidoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CocinaLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(infoPedidoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnCocinar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(CocinaLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(TextSeg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CocinaLayout.setVerticalGroup(
@@ -182,8 +195,10 @@ public class General extends javax.swing.JFrame {
                     .addGroup(CocinaLayout.createSequentialGroup()
                         .addComponent(infoPedidoBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(0, 220, Short.MAX_VALUE))
+                        .addComponent(BtnCocinar)
+                        .addGap(70, 70, 70)
+                        .addComponent(TextSeg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 130, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -305,17 +320,9 @@ public class General extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//        static void Mostrar(Producto ptr){
-//        Producto p = ptr;
-//         System.out.println(" ");
-//        while(p != null){
-//            System.out.println(p.Producto+" "+p.Cant+" "+p.Tipo+" "+p.NroPedid);
-//            p = p.link;
-//        }
-//    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
-        if (model.getRowCount()!=0) {
+        if (model.getRowCount() != 0) {
             ListaProducto lp = new ListaProducto();
             String numeroMesa = MesaSpinner.getValue().toString();
             String numeroMesero = MeseroComb.getSelectedItem().toString();
@@ -327,18 +334,17 @@ public class General extends javax.swing.JFrame {
                 tipoProducto = TablePedidos.getValueAt(i, 1).toString();
                 Producto p = new Producto(nombreProducto, tipoProducto);
                 lp.LlenarList(p); //Creo una lista con todos los productos que va a 
-                                  // tener el pedido
+                // tener el pedido
             }
             Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
 //            p.showPedidoList();
             controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
-                                            // los pedidos del restaurante
-
+            // los pedidos del restaurante
 
             DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
             Row[0] = NroPedido;
             Row[1] = numeroMesa;
-            Row[2] = p;
+            Row[2] = "En Espera";
 
             modelo.addRow(Row);
             for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
@@ -346,11 +352,11 @@ public class General extends javax.swing.JFrame {
                 i -= 1;
             }
             TablePedidos.setModel(model);
-            NroPedido++;            
-        }else{
+            NroPedido++;
+        } else {
             System.out.println("Nada para agregar");
         }
-        
+
     }//GEN-LAST:event_BtnPedidosActionPerformed
     private void addToTable(String p, String type) {
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
@@ -368,7 +374,7 @@ public class General extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Menu.setVisible(true);
         Menu.setSize(500, 320);
-        
+
         if (ft == true) { // para que cuando entren no se dupliquen datos
             controlador.FormarMenu(platosPanel, bebidasPanel, postresPanel);
             Component[] component = platosPanel.getComponents();
@@ -407,31 +413,34 @@ public class General extends javax.swing.JFrame {
 
     private void JKitchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JKitchenActionPerformed
         Cocina.setVisible(true);
-        Cocina.setSize(500, 500);
+        Cocina.setSize(400, 380);
     }//GEN-LAST:event_JKitchenActionPerformed
 
     private void infoPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoPedidoBtnActionPerformed
         int row = TableCocina.getSelectedRow();
-        System.out.println("No.Pedido: "+TableCocina.getValueAt(row, 0).toString());
-        System.out.println("No.Mesa: "+TableCocina.getValueAt(row, 1).toString());
+        System.out.println("No.Pedido: " + TableCocina.getValueAt(row, 0).toString());
+        System.out.println("No.Mesa: " + TableCocina.getValueAt(row, 1).toString());
         Pedido p = controlador.findPedido(TableCocina.getValueAt(row, 0).toString());
 //        p.showPedidoList();
         String productosTxt = p.getProductosTxt();
-        System.out.println("------\n"+productosTxt);
+        System.out.println("------\n" + productosTxt);
         JOptionPane.showMessageDialog(this,
-                "No.Pedido: "+TableCocina.getValueAt(row, 0).toString()+
-                "\nNo.Mesa: "+TableCocina.getValueAt(row, 1).toString()+
-                "\n----------\n"+productosTxt);
+                "No.Pedido: " + TableCocina.getValueAt(row, 0).toString()
+                + "\nNo.Mesa: " + TableCocina.getValueAt(row, 1).toString()
+                + "\n----------\n" + productosTxt);
 
-        
-        
-            
-            
-           
-            
-        
-        
+
     }//GEN-LAST:event_infoPedidoBtnActionPerformed
+
+    private void BtnCocinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCocinarActionPerformed
+        continuar = true;
+        BtnCocinar.setEnabled(false);
+        resetSeg();
+        i = null;
+        i = new Time(this);
+        i.start();
+        
+    }//GEN-LAST:event_BtnCocinarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,6 +478,7 @@ public class General extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCocinar;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JFrame Cocina;
     private javax.swing.JButton JKitchen;
@@ -477,11 +487,11 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> MeseroComb;
     private javax.swing.JTable TableCocina;
     private javax.swing.JTable TablePedidos;
+    private javax.swing.JTextField TextSeg;
     private javax.swing.JPanel bebidasPanel;
     private javax.swing.JFrame infoPedido;
     private javax.swing.JButton infoPedidoBtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -497,5 +507,38 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JPanel platosPanel;
     private javax.swing.JPanel postresPanel;
     // End of variables declaration//GEN-END:variables
+      @Override
+    public void run() {
 
+    }
+
+    public synchronized int aumentSeg() {
+        seg++;
+        TextSeg.setText(String.valueOf(seg));
+        return seg;
+    }
+
+    public synchronized int getSeg() {
+        return seg;
+    }
+
+    public void resetSeg() {
+        TextSeg.setText(String.valueOf("0"));
+        seg = 0;
+    }
+
+    public synchronized boolean isContinuar() {
+        return continuar;
+    }
+
+    public synchronized void seguir() {
+        continuar = true;
+    }
+
+    public synchronized void parar() {
+        BtnCocinar.setEnabled(true);
+        continuar = false;
+        int row = TableCocina.getSelectedRow();
+        TableCocina.setValueAt("Listo", row, 2);
+    }
 }
