@@ -27,8 +27,8 @@ public class Controlador {
         archivo = new Archivo();
         producto = new ListaProducto();
     }
-    public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
-        archivo.MostrarMenu(platosPanel,bebidasPanel,postresPanel);
+    public void FormarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
+        archivo.FormarMenu(platosPanel,bebidasPanel,postresPanel);
     
     }
     public void MostrarPrecio(String p, String precio, String ruta,JTable TablePedidos,String type){
@@ -46,25 +46,10 @@ public class Controlador {
         restaurant.CrearArchivoPlatos(name, price);
     }
     
-//    public ListaProducto LLenarList(ListaProducto Ptr,String Producto,String Tipo,int NroPedido,String Mesa, String Camarero){
-//        Ptr = producto.LlenarList(Ptr, Producto,Tipo,NroPedido,Mesa,Camarero);
-//        return Ptr;
-//    }
-//    
-//    public String GetMesa(ListaProducto Ptr,int NumeroPedido){
-//       return producto.GetMesa(Ptr, NumeroPedido);
-//    }
-//    public String GetCamarero(ListaProducto Ptr,int NumeroPedido){
-//        return producto.GetCamarero(Ptr, NumeroPedido);
-//    }
-//    public String GetPlato(ListaProducto Ptr,int NumeroPedido){
-//        return producto.GetPlato(Ptr, NumeroPedido);
-//    }
-//    public String GetBebida(ListaProducto Ptr,int NumeroPedido){
-//        return producto.GetBebida(Ptr, NumeroPedido);
-//    }
-//    public String GetPostre(ListaProducto Ptr,int NumeroPedido){
-//        return producto.GetPostre(Ptr, NumeroPedido);
-//    }
-    
+    public void addPedidoToList(Pedido p) {
+        restaurant.addPedidoToList(p);
+    }
+    public Pedido findPedido(String noPedido){
+        return restaurant.findPedido(noPedido);
+    }
 }

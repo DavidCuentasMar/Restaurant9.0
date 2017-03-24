@@ -77,15 +77,15 @@ public class Archivo {
             
         }
     }
-    public void MostrarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
+    public void FormarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
         String platosSrc="archivos/platos.txt";        
-        FormarMenu(platosSrc, platosPanel, bebidasPanel, postresPanel);
+        formarMenu(platosSrc, platosPanel, bebidasPanel, postresPanel);
         String productosSrc ="archivos/productos.txt";
-        FormarMenu(productosSrc , platosPanel, bebidasPanel, postresPanel);
+        formarMenu(productosSrc , platosPanel, bebidasPanel, postresPanel);
         
         
     }
-    public void FormarMenu(String ruta, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
+    public void formarMenu(String ruta, JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
     String token = "";
     String p="";
     String c="";

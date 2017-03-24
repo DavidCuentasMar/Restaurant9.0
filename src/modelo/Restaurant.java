@@ -12,7 +12,9 @@ import vista.General;
 public class Restaurant {
     Lista list;
     private Archivo archivo;
+    ListaPedido listaAllPedidos;
     public Restaurant() {
+        listaAllPedidos = new ListaPedido();
         list = new Lista();
         archivo = new Archivo();
     }
@@ -45,6 +47,17 @@ public class Restaurant {
         }
         
         
+    }
+    public void addPedidoToList(Pedido p) {
+        listaAllPedidos.addPedido(p); // Agrega el pedido a la lista de todos
+                                      // los pedidos del restaurante  
+    }
+    public Pedido findPedido(String noPedido){
+        Pedido q = listaAllPedidos.getPtr();
+        while(q.NroPedido!=Integer.parseInt(noPedido)){
+            q=q.getLink();            
+        }
+        return q;
     }
     
 }

@@ -17,7 +17,8 @@ public class Pedido {
     public int NroPedido;
     public String Mesa;
     public String Camarero;
-    private static ListaProducto productos;
+    private Pedido link;
+    private  ListaProducto productos;
 
 
     public Pedido(int NroPedido, String Mesa, String Camarero, ListaProducto productos) {
@@ -30,7 +31,15 @@ public class Pedido {
         productos.showList();
     }
 
-    public static ListaProducto getProductos() {
+    public Pedido getLink() {
+        return link;
+    }
+
+    public void setLink(Pedido link) {
+        this.link = link;
+    }
+    
+    public ListaProducto getProductos() {
         return productos;
     }
 

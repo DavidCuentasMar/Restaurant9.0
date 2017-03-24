@@ -20,11 +20,15 @@ public class General extends javax.swing.JFrame {
     boolean ft = true;
     Controlador controlador;
 
+    public void setFt(boolean ft) {
+        this.ft = ft;
+    }
+    
     public General() {
+        
         controlador = new Controlador();
         initComponents();
     }
-    ListaProducto Ptr;
     int NroPedido = 1;
 
     /**
@@ -51,8 +55,9 @@ public class General extends javax.swing.JFrame {
         Cocina = new javax.swing.JFrame();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableCocina = new javax.swing.JTable();
-        BtnMake = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        infoPedidoBtn = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        infoPedido = new javax.swing.JFrame();
         jLabel1 = new javax.swing.JLabel();
         MeseroComb = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -127,39 +132,30 @@ public class General extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pedido", "Estado"
+                "No.Pedido", "No.Mesa", ""
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(TableCocina);
+        if (TableCocina.getColumnModel().getColumnCount() > 0) {
+            TableCocina.getColumnModel().getColumn(2).setMaxWidth(1);
+        }
 
-        BtnMake.setText("Realizar Pedido");
-        BtnMake.addActionListener(new java.awt.event.ActionListener() {
+        infoPedidoBtn.setText("Info. Pedido");
+        infoPedidoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnMakeActionPerformed(evt);
+                infoPedidoBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Información del Pedido");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton3.setText("Cocinar");
 
         javax.swing.GroupLayout CocinaLayout = new javax.swing.GroupLayout(Cocina.getContentPane());
         Cocina.getContentPane().setLayout(CocinaLayout);
@@ -167,11 +163,11 @@ public class General extends javax.swing.JFrame {
             CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CocinaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnMake, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(infoPedidoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CocinaLayout.setVerticalGroup(
@@ -179,12 +175,24 @@ public class General extends javax.swing.JFrame {
             .addGroup(CocinaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(CocinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(CocinaLayout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(infoPedidoBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnMake)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton3)
+                        .addGap(0, 220, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout infoPedidoLayout = new javax.swing.GroupLayout(infoPedido.getContentPane());
+        infoPedido.getContentPane().setLayout(infoPedidoLayout);
+        infoPedidoLayout.setHorizontalGroup(
+            infoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        infoPedidoLayout.setVerticalGroup(
+            infoPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -302,34 +310,43 @@ public class General extends javax.swing.JFrame {
 //        }
 //    }
     private void BtnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPedidosActionPerformed
-        ListaProducto lp = new ListaProducto();
-        String numeroMesa = MesaSpinner.getValue().toString();
-        String numeroMesero = MeseroComb.getSelectedItem().toString();
-        Object[] Row = new Object[7];
-        String nombreProducto, tipoProducto;
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
-        for (int i = 0; i < TablePedidos.getRowCount(); i++) {
-            nombreProducto = TablePedidos.getValueAt(i, 0).toString();
-            tipoProducto = TablePedidos.getValueAt(i, 1).toString();
-            Producto p = new Producto(nombreProducto, tipoProducto);
-            lp.LlenarList(p);
-        }
-        Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
-        p.showPedidoList();
-        ListaPedido h = new ListaPedido();
-        h.LlenarList(p);
-        h.showList();
-        DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
-        Row[0] = NroPedido;
-        Row[1] = "En espera";
+        if (model.getRowCount()!=0) {
+            ListaProducto lp = new ListaProducto();
+            String numeroMesa = MesaSpinner.getValue().toString();
+            String numeroMesero = MeseroComb.getSelectedItem().toString();
+            Object[] Row = new Object[7];
+            String nombreProducto, tipoProducto;
 
-        modelo.addRow(Row);
-        for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
-            model.removeRow(i);
-            i -= 1;
+            for (int i = 0; i < TablePedidos.getRowCount(); i++) {
+                nombreProducto = TablePedidos.getValueAt(i, 0).toString();
+                tipoProducto = TablePedidos.getValueAt(i, 1).toString();
+                Producto p = new Producto(nombreProducto, tipoProducto);
+                lp.LlenarList(p); //Creo una lista con todos los productos que va a 
+                                  // tener el pedido
+            }
+            Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
+            p.showPedidoList();
+            controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
+                                            // los pedidos del restaurante
+
+
+            DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
+            Row[0] = NroPedido;
+            Row[1] = numeroMesa;
+            Row[2] = p;
+
+            modelo.addRow(Row);
+            for (int i = 0; i < TablePedidos.getRowCount(); i++) {//Limpiar tabla
+                model.removeRow(i);
+                i -= 1;
+            }
+            TablePedidos.setModel(model);
+            NroPedido++;            
+        }else{
+            System.out.println("Nada para agregar");
         }
-        TablePedidos.setModel(model);
-        NroPedido++;
+        
     }//GEN-LAST:event_BtnPedidosActionPerformed
     private void addToTable(String p, String type) {
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
@@ -347,8 +364,9 @@ public class General extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Menu.setVisible(true);
         Menu.setSize(500, 320);
-        controlador.MostrarMenu(platosPanel, bebidasPanel, postresPanel);
+        
         if (ft == true) { // para que cuando entren no se dupliquen datos
+            controlador.FormarMenu(platosPanel, bebidasPanel, postresPanel);
             Component[] component = platosPanel.getComponents();
             for (Component component1 : component) {
                 component1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -384,20 +402,24 @@ public class General extends javax.swing.JFrame {
     }//GEN-LAST:event_MeseroCombActionPerformed
 
     private void JKitchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JKitchenActionPerformed
-        // TODO add your handling code here:
+        Cocina.setVisible(true);
+        Cocina.setSize(500, 500);
     }//GEN-LAST:event_JKitchenActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void infoPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoPedidoBtnActionPerformed
         int row = TableCocina.getSelectedRow();
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void BtnMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMakeActionPerformed
-
-        int row = TableCocina.getSelectedRow();
-        TableCocina.setValueAt("Realizado", row, 1);
-
-    }//GEN-LAST:event_BtnMakeActionPerformed
+        System.out.println(TableCocina.getValueAt(row, 0).toString());
+        System.out.println(TableCocina.getValueAt(row, 1).toString());
+        Pedido p = controlador.findPedido(TableCocina.getValueAt(row, 0).toString());
+        p.showPedidoList();
+            
+            
+            
+           
+            
+        
+        
+    }//GEN-LAST:event_infoPedidoBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,7 +457,6 @@ public class General extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnMake;
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JFrame Cocina;
     private javax.swing.JButton JKitchen;
@@ -445,8 +466,10 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JTable TableCocina;
     private javax.swing.JTable TablePedidos;
     private javax.swing.JPanel bebidasPanel;
+    private javax.swing.JFrame infoPedido;
+    private javax.swing.JButton infoPedidoBtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

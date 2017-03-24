@@ -11,27 +11,28 @@ package modelo;
  */
 public class ListaPedido {
 
-    Cocina ptr = null;
-    Cocina q = null;
+    Pedido ptr;
 
-    public void LlenarList(Pedido p) {
+    public ListaPedido() {
+        this.ptr = null;
+    }
+    
+    public void addPedido(Pedido p) {
         if (ptr == null) {
-            ptr = new Cocina(p);
-            q = ptr;
+            this.ptr = p;
         } else {
-            q.setLink(new Cocina(p));
-            q = q.getLink();
+            Pedido q = this.ptr;
+            while(q.getLink() != null){
+                q = q.getLink();
+            }
+            q.setLink(p);
         }
 
     }
 
-    public void showList() {
-        Cocina p = ptr;
-        while (p != null) {
-            System.out.println(p.getPtr().NroPedido);
-            p.getPtr().getProductos().showList();
-            p = p.getLink();
-        }
+    public Pedido getPtr() {
+        return ptr;
     }
+    
 
 }
