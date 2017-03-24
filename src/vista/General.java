@@ -8,6 +8,9 @@ package vista;
 import controlador.Controlador;
 import modelo.ListaProducto;
 import java.awt.Component;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -16,7 +19,8 @@ import modelo.*;
  * @author dacuentas
  */
 public class General extends javax.swing.JFrame {
-
+    int x = 10;
+    int y = 10;
     boolean ft = true;
     Controlador controlador;
 
@@ -326,7 +330,7 @@ public class General extends javax.swing.JFrame {
                                   // tener el pedido
             }
             Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
-            p.showPedidoList();
+//            p.showPedidoList();
             controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
                                             // los pedidos del restaurante
 
@@ -408,11 +412,19 @@ public class General extends javax.swing.JFrame {
 
     private void infoPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoPedidoBtnActionPerformed
         int row = TableCocina.getSelectedRow();
-        System.out.println(TableCocina.getValueAt(row, 0).toString());
-        System.out.println(TableCocina.getValueAt(row, 1).toString());
+        System.out.println("No.Pedido: "+TableCocina.getValueAt(row, 0).toString());
+        System.out.println("No.Mesa: "+TableCocina.getValueAt(row, 1).toString());
         Pedido p = controlador.findPedido(TableCocina.getValueAt(row, 0).toString());
-        p.showPedidoList();
-            
+//        p.showPedidoList();
+        String productosTxt = p.getProductosTxt();
+        System.out.println("------\n"+productosTxt);
+        JOptionPane.showMessageDialog(this,
+                "No.Pedido: "+TableCocina.getValueAt(row, 0).toString()+
+                "\nNo.Mesa: "+TableCocina.getValueAt(row, 1).toString()+
+                "\n----------\n"+productosTxt);
+
+        
+        
             
             
            

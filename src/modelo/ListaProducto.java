@@ -22,6 +22,15 @@ public class ListaProducto {
             p=p.getLink();
         }
     }
+    public String getListTxt(){
+        Producto p = ptr;
+        String a = "";
+        while(p!=null){
+            a=a+p.getName()+"\n";
+            p=p.getLink();
+        }
+        return a;
+    }
     public void LlenarList(Producto p){
         Producto k = this.ptr;
         if (k == null) {

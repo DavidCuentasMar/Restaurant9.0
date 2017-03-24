@@ -54,7 +54,12 @@ public class Pedido {
     public String getCamarero() {
         return Camarero;
     }
-    
+
+    public String getProductosTxt() {
+        return productos.getListTxt();
+    }
+
+
     
     
 }

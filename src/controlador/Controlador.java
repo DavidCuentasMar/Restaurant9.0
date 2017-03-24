@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
-import modelo.Lista;
 import modelo.Pedido;
 import modelo.ListaProducto;
 import modelo.Restaurant;
