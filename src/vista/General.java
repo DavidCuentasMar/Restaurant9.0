@@ -433,13 +433,14 @@ public class General extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_infoPedidoBtnActionPerformed
 
     private void BtnCocinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCocinarActionPerformed
-        continuar = true;
-        BtnCocinar.setEnabled(false);
-        resetSeg();
-        i = null;
-        i = new Time(this);
-        i.start();
-        
+        if (TableCocina.getSelectedRow()!=-1) {
+            continuar = true;
+            BtnCocinar.setEnabled(false);
+            resetSeg();
+            i = null;
+            i = new Time(this);
+            i.start();
+        }
     }//GEN-LAST:event_BtnCocinarActionPerformed
 
     /**
