@@ -415,6 +415,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     private void JKitchenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JKitchenActionPerformed
         Cocina.setVisible(true);
         Cocina.setSize(400, 380);
+        
     }//GEN-LAST:event_JKitchenActionPerformed
 
     private void infoPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoPedidoBtnActionPerformed
@@ -435,9 +436,10 @@ public class General extends javax.swing.JFrame implements Runnable {
 
     private void BtnCocinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCocinarActionPerformed
         if (TableCocina.getSelectedRow()!=-1) {
-            int row = TableCocina.getSelectedRow();
-            String NoPlato = TableCocina.getValueAt(row, 0).toString();
-            boolean cocinar = controlador.validarPedido();
+            int row = 0;
+            String NoPedido = TableCocina.getValueAt(row, 0).toString();
+            controlador.validarPedido(Integer.parseInt(NoPedido));
+            
             
             continuar = true;
             BtnCocinar.setEnabled(false);

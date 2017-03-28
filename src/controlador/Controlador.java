@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
+import modelo.JefeCocina;
 import modelo.Pedido;
 import modelo.ListaProducto;
 import modelo.Mesero;
@@ -23,6 +24,7 @@ public class Controlador {
     private Archivo archivo;
     private ListaProducto producto;
     private Mesero mesero;
+    private JefeCocina jefeCocina;
     public Controlador() {
         restaurant = new Restaurant();
         archivo = new Archivo();
@@ -60,5 +62,9 @@ public class Controlador {
 
     public boolean validarPedido() {
         return archivo.validarPedido();
+    }
+
+    public void validarPedido(int NoPedido) {
+        jefeCocina.validarPedido(NoPedido);
     }
 }

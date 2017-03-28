@@ -9,4 +9,12 @@ public class Cocina {
     public void add(Pedido p){
         pedidos.addPedido(p);
     }
+    
+    public Pedido findPedido(int NoPedido){
+        Pedido p = pedidos.getPtr();
+        while(p.NroPedido!=NoPedido){
+            p=p.getLink();
+        }         
+        return p;
+    }
 }
