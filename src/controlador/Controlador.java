@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
 import modelo.Pedido;
 import modelo.ListaProducto;
+import modelo.Mesero;
 import modelo.Restaurant;
 
 /**
@@ -21,6 +22,7 @@ public class Controlador {
     private Restaurant restaurant;
     private Archivo archivo;
     private ListaProducto producto;
+    private Mesero mesero;
     public Controlador() {
         restaurant = new Restaurant();
         archivo = new Archivo();
@@ -50,5 +52,13 @@ public class Controlador {
     }
     public Pedido findPedido(String noPedido){
         return restaurant.findPedido(noPedido);
+    }
+
+    public void addPedidoToCocina(Pedido p) {
+        mesero.pedidoToCocina(p);
+    }
+
+    public boolean validarPedido() {
+        return archivo.validarPedido();
     }
 }

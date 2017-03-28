@@ -339,7 +339,8 @@ public class General extends javax.swing.JFrame implements Runnable {
             Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
 //            p.showPedidoList();
             controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
-            // los pedidos del restaurante
+                                            // los pedidos del restaurante
+            controlador.addPedidoToCocina(p);
 
             DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
             Row[0] = NroPedido;
@@ -434,6 +435,10 @@ public class General extends javax.swing.JFrame implements Runnable {
 
     private void BtnCocinarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCocinarActionPerformed
         if (TableCocina.getSelectedRow()!=-1) {
+            int row = TableCocina.getSelectedRow();
+            String NoPlato = TableCocina.getValueAt(row, 0).toString();
+            boolean cocinar = controlador.validarPedido();
+            
             continuar = true;
             BtnCocinar.setEnabled(false);
             resetSeg();

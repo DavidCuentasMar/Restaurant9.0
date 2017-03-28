@@ -11,11 +11,13 @@ import vista.General;
  */
 public class Restaurant {
     Lista list;
+    Cocina cocina;
     private Archivo archivo;
     ListaPedido listaAllPedidos;
     public Restaurant() {
         listaAllPedidos = new ListaPedido();
         list = new Lista();
+        cocina = new Cocina();
         archivo = new Archivo();
     }
     public void CrearArchivoPlatos(String name, int price){

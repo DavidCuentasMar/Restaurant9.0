@@ -26,7 +26,10 @@ import vista.Configuracion;
  */
 public class Archivo {
     Nodo p = new Nodo();
+    public void validarPedido(Pedido p){
     
+    
+    }
     public void MostrarPrecio(String p, String precio,String ruta, JTable TablePedidos, String type){
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
         String token = "";
@@ -178,5 +181,9 @@ public class Archivo {
             Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+
+    public boolean validarPedido() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
