@@ -9,10 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.Archivo;
-import modelo.JefeCocina;
 import modelo.Pedido;
-import modelo.ListaProducto;
-import modelo.Mesero;
 import modelo.Restaurant;
 
 /**
@@ -22,13 +19,9 @@ import modelo.Restaurant;
 public class Controlador {
     private Restaurant restaurant;
     private Archivo archivo;
-    private ListaProducto producto;
-    private Mesero mesero;
-    private JefeCocina jefeCocina;
     public Controlador() {
         restaurant = new Restaurant();
         archivo = new Archivo();
-        producto = new ListaProducto();
     }
     public void FormarMenu(JPanel platosPanel, JPanel bebidasPanel, JPanel postresPanel){
         archivo.FormarMenu(platosPanel,bebidasPanel,postresPanel);
@@ -49,22 +42,18 @@ public class Controlador {
         restaurant.CrearArchivoPlatos(name, price);
     }
     
-    public void addPedidoToList(Pedido p) {
-        restaurant.addPedidoToList(p);
-    }
+//    public void addPedidoToList(Pedido p) {
+//        restaurant.addPedidoToList(p);
+//    }
     public Pedido findPedido(String noPedido){
         return restaurant.findPedido(noPedido);
     }
 
     public void addPedidoToCocina(Pedido p) {
-        mesero.pedidoToCocina(p);
+        restaurant.addPedidoToCocina(p);
     }
-
-    public boolean validarPedido() {
-        return archivo.validarPedido();
-    }
-
-    public void validarPedido(int NoPedido) {
-        jefeCocina.validarPedido(NoPedido);
+    
+    public void actualizarStock(int NoPedido) {
+        restaurant.actualizarStock(NoPedido);
     }
 }

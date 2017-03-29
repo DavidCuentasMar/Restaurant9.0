@@ -11,10 +11,13 @@ public class Cocina {
     }
     
     public Pedido findPedido(int NoPedido){
+         System.out.println("HOLA");
         Pedido p = pedidos.getPtr();
-        while(p.NroPedido!=NoPedido){
-            p=p.getLink();
-        }         
+        System.out.println(p);
+       
+//        while(p.NroPedido!=NoPedido){
+//            p=p.getLink();
+//        }         
         return p;
     }
 }

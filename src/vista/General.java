@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
 import controlador.Controlador;
 import modelo.ListaProducto;
 import java.awt.Component;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
 
@@ -338,8 +331,8 @@ public class General extends javax.swing.JFrame implements Runnable {
             }
             Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
 //            p.showPedidoList();
-            controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
-                                            // los pedidos del restaurante
+//            controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
+//                                            // los pedidos del restaurante
             controlador.addPedidoToCocina(p);
 
             DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
@@ -354,6 +347,7 @@ public class General extends javax.swing.JFrame implements Runnable {
             }
             TablePedidos.setModel(model);
             NroPedido++;
+            
         } else {
             System.out.println("Nada para agregar");
         }
@@ -438,7 +432,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         if (TableCocina.getSelectedRow()!=-1) {
             int row = 0;
             String NoPedido = TableCocina.getValueAt(row, 0).toString();
-            controlador.validarPedido(Integer.parseInt(NoPedido));
+            controlador.actualizarStock(Integer.parseInt(NoPedido));
             
             
             continuar = true;

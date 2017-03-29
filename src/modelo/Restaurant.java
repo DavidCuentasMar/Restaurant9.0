@@ -14,10 +14,12 @@ public class Restaurant {
     Cocina cocina;
     private Archivo archivo;
     ListaPedido listaAllPedidos;
+    private JefeCocina jefeCocina;
     public Restaurant() {
         listaAllPedidos = new ListaPedido();
         list = new Lista();
         cocina = new Cocina();
+        jefeCocina=new JefeCocina();
         archivo = new Archivo();
     }
     public void CrearArchivoPlatos(String name, int price){
@@ -60,6 +62,14 @@ public class Restaurant {
             q=q.getLink();            
         }
         return q;
+    }
+
+    public void actualizarStock(int NoPedido) {
+        jefeCocina.actualizarStock(NoPedido, cocina);
+    }
+
+    public void addPedidoToCocina(Pedido p) {
+        cocina.add(p);
     }
     
 }

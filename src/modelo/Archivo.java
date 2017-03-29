@@ -5,9 +5,11 @@
  */
 package modelo;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -26,10 +28,7 @@ import vista.Configuracion;
  */
 public class Archivo {
     Nodo p = new Nodo();
-    public void validarPedido(Pedido p){
-    
-    
-    }
+ 
     public void MostrarPrecio(String p, String precio,String ruta, JTable TablePedidos, String type){
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
         String token = "";
@@ -183,7 +182,25 @@ public class Archivo {
         
     }
 
-    public boolean validarPedido() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public int getCantidad(String name) {
+        String cadena;
+        try(FileReader f = new FileReader("archivos/productos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                while(st.hasMoreElements()){
+                    String token=st.nextElement().toString();
+                    token=st.nextElement().toString();
+                    token=st.nextElement().toString();
+                    return Integer.parseInt(token);
+                }
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 9999;
     }
 }
