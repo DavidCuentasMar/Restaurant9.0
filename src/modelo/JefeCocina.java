@@ -14,7 +14,6 @@ public class JefeCocina {
     Archivo archivo;
     
     public void actualizarStock(int NoPedido, Cocina cocina) {
-        System.out.println("AA " + NoPedido);
         Pedido p = cocina.findPedido(NoPedido); //Buscamos el pedido
 //        productList=p.getProductos(); // Tomamos la lista de productos pedidos
 //        //Recorremos y vamos verificando y/o actualizando el stock
