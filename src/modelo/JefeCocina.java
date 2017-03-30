@@ -17,11 +17,15 @@ public class JefeCocina {
       Pedido p = cocina.findPedido(NoPedido); //Buscamos el pedido
       productList=p.getProductos(); // Tomamos la lista de productos pedidos
       productList.showList();
-//        //Recorremos y vamos verificando y/o actualizando el stock
-//        Producto q = productList.getPtr();
-//        String name = q.getName();
+        //Recorremos y vamos verificando y/o actualizando el stock
+      Producto q = productList.getPtr();
+      while(q!=null){
+        String name = q.getName();
 //        int cant = archivo.getCantidad(name);
-//        System.out.println(name + ":"+cant);
+        System.out.println(name + ":"+0);
+        q=q.getLink();
+      }
+
         
     }
     
