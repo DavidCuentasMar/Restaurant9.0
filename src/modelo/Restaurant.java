@@ -13,10 +13,8 @@ public class Restaurant {
     Lista list;
     Cocina cocina;
     private Archivo archivo;
-    ListaPedido listaAllPedidos;
     private JefeCocina jefeCocina;
     public Restaurant() {
-        listaAllPedidos = new ListaPedido();
         list = new Lista();
         cocina = new Cocina();
         jefeCocina=new JefeCocina();
@@ -27,11 +25,7 @@ public class Restaurant {
     }
     public void addIngredienteList(String Ingrediente){
         list.add(Ingrediente);
-    }
-    
-    
-    
-        
+    } 
     
     public static void main(String[] args) {
         if (new File("archivos/productos.txt").exists() && new File("archivos/platos.txt").exists()){
@@ -52,16 +46,10 @@ public class Restaurant {
         
         
     }
-    public void addPedidoToList(Pedido p) {
-        listaAllPedidos.addPedido(p); // Agrega el pedido a la lista de todos
-                                      // los pedidos del restaurante  
-    }
+
     public Pedido findPedido(String noPedido){
-        Pedido q = listaAllPedidos.getPtr();
-        while(q.NroPedido!=Integer.parseInt(noPedido)){
-            q=q.getLink();            
-        }
-        return q;
+        Pedido p = cocina.findPedido(Integer.parseInt(noPedido));
+        return p;
     }
 
     public void actualizarStock(int NoPedido) {
