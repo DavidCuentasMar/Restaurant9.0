@@ -182,7 +182,19 @@ public class Archivo {
         
     }
 
-
+    public void archivoTemp(String name, int cant){
+        try(FileWriter bw = new FileWriter("archivos/temp.txt", true)){         
+            BufferedWriter w = new BufferedWriter(bw);           
+                w.write(name+","+cant);
+                w.newLine();            
+            w.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    
+    
+    }
     public int getCantidad(String name) {
         String cadena;
         try(FileReader f = new FileReader("archivos/productos.txt")){
@@ -192,8 +204,11 @@ public class Archivo {
                 while(st.hasMoreElements()){
                     String token=st.nextElement().toString();
                     token=st.nextElement().toString();
-                    token=st.nextElement().toString();
-                    return Integer.parseInt(token);
+                    if (name.equals(token)) {
+                        token=st.nextElement().toString();
+                        return Integer.parseInt(token);                        
+                    }
+                    
                 }
             }
             b.close();
@@ -202,5 +217,9 @@ public class Archivo {
         }
         
         return 9999;
+    }
+
+    void actualizarProductosTxt() {
+        
     }
 }
