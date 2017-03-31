@@ -26,10 +26,10 @@ public class JefeCocina {
         Producto q = productList.getPtr();
         while (q!=null){
             if (q.getType().equals("Postre") || q.getType().equals("Bebida")) {
-                int cant = archivo.getCantidad(q.getName());                
+                int cant = archivo.getCantidad(q.getName());
+                int price = archivo.getPrice(q.getName());
                 if (cant>=1) {
-                    System.out.println("gg");
-                    archivo.archivoTemp(q.getName(),cant-1);
+                    archivo.archivoTemp(q.getName(),q.getType(),cant-1, price);
                     archivo.actualizarProductosTxt();
                 }else{
                     System.out.println("No hay ingredientes para cocinar");

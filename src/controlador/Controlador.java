@@ -56,4 +56,5 @@ public class Controlador {
     public void actualizarStock(int NoPedido) {
         restaurant.actualizarStock(NoPedido);
     }
+
 }

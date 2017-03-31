@@ -182,11 +182,48 @@ public class Archivo {
         
     }
 
-    public void archivoTemp(String name, int cant){
+    public void archivoTemp(String name,String type, int cant, int price){
         try(FileWriter bw = new FileWriter("archivos/temp.txt", true)){         
-            BufferedWriter w = new BufferedWriter(bw);           
-                w.write(name+","+cant);
-                w.newLine();            
+            BufferedWriter w = new BufferedWriter(bw);
+            String cadena;
+            try(FileReader f = new FileReader("archivos/productos.txt")){
+                BufferedReader b = new BufferedReader(f);            
+                while((cadena = b.readLine())!=null) {
+                    System.out.println(cadena);
+                    StringTokenizer st = new StringTokenizer(cadena,",");
+                    boolean keep = true;
+                    while(st.hasMoreElements() && keep==true){                        
+                        String token=st.nextElement().toString();
+                        if (token.equals(type)) {
+//                            token=st.nextElement().toString();
+//                            if (token.equals(name)) {
+//                                w.write(type+","+name+","+cant+","+price);
+//                                w.newLine();                                  
+//                             }                            
+                        }else{ //el producto en archivo no sufre cambio
+                              keep=false;
+//                            String typePTxt=token;
+//                            token=st.nextElement().toString();
+//                            String namePTxt=token;
+//                            token=st.nextElement().toString();
+//                            String cantPTxt=token;
+//                            token=st.nextElement().toString();
+//                            String pricePTxt=token;
+//                            w.write(typePTxt+","+namePTxt+","+cantPTxt+","+pricePTxt);
+//                            w.newLine();
+                        }
+                    }
+                }
+                b.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            
+            
+            
+                          
             w.close();
         } catch (IOException ex) {
             Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
@@ -216,10 +253,36 @@ public class Archivo {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return 9999;
+        return -666;
+    }
+    public int getPrice(String name) {
+        String cadena;
+        try(FileReader f = new FileReader("archivos/productos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                while(st.hasMoreElements()){
+                    String token=st.nextElement().toString();
+                    token=st.nextElement().toString();
+                    if (name.equals(token)) {
+                        token=st.nextElement().toString();
+                        token=st.nextElement().toString();
+                        return Integer.parseInt(token);                        
+                    }                    
+                }
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return -15;
     }
 
     void actualizarProductosTxt() {
         
+        
+        
+        
     }
+
 }

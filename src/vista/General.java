@@ -432,8 +432,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         if (TableCocina.getSelectedRow()!=-1) {
             int row = 0;
             String NoPedido = TableCocina.getValueAt(row, 0).toString();
-            controlador.actualizarStock(Integer.parseInt(NoPedido));
-            
+            controlador.actualizarStock(Integer.parseInt(NoPedido));            
             
             continuar = true;
             BtnCocinar.setEnabled(false);
