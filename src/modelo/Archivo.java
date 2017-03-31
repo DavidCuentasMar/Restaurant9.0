@@ -189,47 +189,37 @@ public class Archivo {
             try(FileReader f = new FileReader("archivos/productos.txt")){
                 BufferedReader b = new BufferedReader(f);            
                 while((cadena = b.readLine())!=null) {
-                    System.out.println(cadena);
+//                  System.out.println(cadena);
                     StringTokenizer st = new StringTokenizer(cadena,",");
-                    boolean keep = true;
-                    while(st.hasMoreElements() && keep==true){                        
-                        String token=st.nextElement().toString();
-                        if (token.equals(type)) {
-//                            token=st.nextElement().toString();
-//                            if (token.equals(name)) {
-//                                w.write(type+","+name+","+cant+","+price);
-//                                w.newLine();                                  
-//                             }                            
-                        }else{ //el producto en archivo no sufre cambio
-                              keep=false;
-//                            String typePTxt=token;
-//                            token=st.nextElement().toString();
-//                            String namePTxt=token;
-//                            token=st.nextElement().toString();
-//                            String cantPTxt=token;
-//                            token=st.nextElement().toString();
-//                            String pricePTxt=token;
-//                            w.write(typePTxt+","+namePTxt+","+cantPTxt+","+pricePTxt);
-//                            w.newLine();
+                    String typeToken = st.nextElement().toString();
+                    String nameToken = st.nextElement().toString();
+                    String cantToken = st.nextElement().toString();
+                    String priceToken = st.nextElement().toString();                    
+                    if (type.equals(typeToken)) {                        
+                        if (nameToken.equals(name)) {
+                            w.write(typeToken+","+nameToken+","+cant+","+priceToken);                       
+                        }else{                            
+                            w.write(typeToken+","+nameToken+","+cantToken+","+priceToken);                            
                         }
+                        w.newLine();
+                    }else{
+                        w.write(typeToken+","+nameToken+","+cantToken+","+priceToken);
+                        w.newLine();                    
                     }
                 }
                 b.close();
             } catch (IOException ex) {
                 Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
-            
-            
-            
-                          
+            }               
             w.close();
         } catch (IOException ex) {
             Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    
+        File fichero = new File("archivos/productos.txt");
+        fichero.delete();
+        File fichero2 = new File("archivos/temp.txt");
+        fichero2.renameTo(fichero);    
     
     }
     public int getCantidad(String name) {
@@ -278,11 +268,6 @@ public class Archivo {
         return -15;
     }
 
-    void actualizarProductosTxt() {
-        
-        
-        
-        
-    }
+
 
 }

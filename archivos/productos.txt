@@ -6,9 +6,9 @@ Ingrediente,Carne,50,0
 Ingrediente,Huevo,50,0
 Ingrediente,Pan,50,0
 Ingrediente,Salchicha,50,0
-Bebida,Pepsi,50,2000
-Bebida,Cocakola,50,3000
-Bebida,Agua,50,1500
-Postre,Helado,50,3500
-Postre,Brownie,50,5000
-Postre,Biscotti,50,7500
+Bebida,Agua,49,1500
+Bebida,Pepsi,49,1500
+Bebida,CocaCola,49,1500
+Postre,Biscotti,48,7500
+Postre,Brownie,48,7500
+Postre,Sopa,48,7500

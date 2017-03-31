@@ -30,11 +30,13 @@ public class JefeCocina {
                 int price = archivo.getPrice(q.getName());
                 if (cant>=1) {
                     archivo.archivoTemp(q.getName(),q.getType(),cant-1, price);
-                    archivo.actualizarProductosTxt();
                 }else{
                     System.out.println("No hay ingredientes para cocinar");
                 }                                    
             }else{
+                // AQUI ENTRA SI EN UN PLATO, SE TIENE QUE BUSCAR QUE INGREDIENTES
+                //TIENE EN EL ARCHIVO PLATO UNA VEZ SE RECORRE Y MIENTRAS QUE SE RECCORE
+                // ESA LISTA SE UNA archivo.archivoTEMP()
         
             }
 
