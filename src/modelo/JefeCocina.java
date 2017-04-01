@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.StringTokenizer;
+
 /**
  *
  * @author pollo4053
@@ -31,9 +33,34 @@ public class JefeCocina {
                 if (cant>=1) {
                     archivo.archivoTemp(q.getName(),q.getType(),cant-1, price);
                 }else{
-                    System.out.println("No hay ingredientes para cocinar");
+                    System.out.println(q.getName()+" no tiene en el stock");
                 }                                    
             }else{
+                String name = q.getName();
+                String ingredientesTxt = archivo.getPlatoIngredientes(name);
+                System.out.println(ingredientesTxt);
+                StringTokenizer st = new StringTokenizer(ingredientesTxt,"+");
+                boolean ok=true; //se puede cocinar el plato (todos los ingredientes tienen mas de 1 cant)
+                while(st.hasMoreElements() && ok==true){
+                    String token=st.nextElement().toString();
+//                    System.out.println(token);
+                    int cant = archivo.getCantidad(token);
+                    if (cant<=0) {
+                        ok=false;
+                    }                   
+                }
+                if (ok==true) {
+                    st = new StringTokenizer(ingredientesTxt,"+");
+                    while(st.hasMoreElements()){
+                        String token=st.nextElement().toString();
+//                      System.out.println(token);
+                        int cant = archivo.getCantidad(token);
+                        int price = archivo.getPrice(token);
+                        archivo.archivoTemp(token,"Ingrediente",cant-1, price);               
+                    }
+                }else{
+                    System.out.println("El plato " + name + "no tiene los ingredientes completos"+ "[NO COCINADO]");
+                }
                 // AQUI ENTRA SI EN UN PLATO, SE TIENE QUE BUSCAR QUE INGREDIENTES
                 //TIENE EN EL ARCHIVO PLATO UNA VEZ SE RECORRE Y MIENTRAS QUE SE RECCORE
                 // ESA LISTA SE UNA archivo.archivoTEMP()

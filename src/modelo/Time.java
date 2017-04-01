@@ -30,6 +30,7 @@ public class Time extends Thread {
                 Seg = 0;
                 G.resetSeg();
                 G.parar();
+                
             }
             try {
                 sleep(999);

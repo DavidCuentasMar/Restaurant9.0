@@ -70,6 +70,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         TablePedidos = new javax.swing.JTable();
         JKitchen = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/platos.png"))); // NOI18N
 
@@ -245,6 +246,11 @@ public class General extends javax.swing.JFrame implements Runnable {
                 return types [columnIndex];
             }
         });
+        TablePedidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TablePedidosKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(TablePedidos);
 
         JKitchen.setText("Ver Cocina");
@@ -263,6 +269,13 @@ public class General extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -272,6 +285,8 @@ public class General extends javax.swing.JFrame implements Runnable {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnPedidos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JKitchen))
                     .addGroup(layout.createSequentialGroup()
@@ -306,7 +321,8 @@ public class General extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnPedidos)
-                    .addComponent(JKitchen))
+                    .addComponent(JKitchen)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -432,16 +448,28 @@ public class General extends javax.swing.JFrame implements Runnable {
         if (TableCocina.getSelectedRow()!=-1) {
             int row = 0;
             String NoPedido = TableCocina.getValueAt(row, 0).toString();
-            controlador.actualizarStock(Integer.parseInt(NoPedido));            
-            
+            controlador.actualizarStock(Integer.parseInt(NoPedido));                        
             continuar = true;
             BtnCocinar.setEnabled(false);
             resetSeg();
             i = null;
             i = new Time(this);
             i.start();
+            
         }
     }//GEN-LAST:event_BtnCocinarActionPerformed
+
+    private void TablePedidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TablePedidosKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablePedidosKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (TablePedidos.getSelectedRow()!=-1) {
+            int row= TablePedidos.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();            
+            model.removeRow(row);
+        }        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,6 +521,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     private javax.swing.JFrame infoPedido;
     private javax.swing.JButton infoPedidoBtn;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -541,5 +570,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         continuar = false;
         int row = TableCocina.getSelectedRow();
         TableCocina.setValueAt("Listo", row, 2);
+        DefaultTableModel model = (DefaultTableModel) TableCocina.getModel();            
+        model.removeRow(row);
     }
 }
