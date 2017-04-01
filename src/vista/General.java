@@ -20,6 +20,8 @@ public class General extends javax.swing.JFrame implements Runnable {
     private int seg = 0;
     private boolean continuar = true;
     private Time i;
+    int Monto = 0;
+    int K = 0;
     Controlador controlador;
     public void setFt(boolean ft) {
         this.ft = ft;
@@ -54,6 +56,9 @@ public class General extends javax.swing.JFrame implements Runnable {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane5 = new javax.swing.JScrollPane();
         bebidasPanel = new javax.swing.JPanel();
+        jSeparator3 = new javax.swing.JSeparator();
+        Label_Show = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         Cocina = new javax.swing.JFrame();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableCocina = new javax.swing.JTable();
@@ -88,25 +93,37 @@ public class General extends javax.swing.JFrame implements Runnable {
         bebidasPanel.setLayout(new java.awt.GridLayout(2, 2));
         jScrollPane5.setViewportView(bebidasPanel);
 
+        Label_Show.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cash.png"))); // NOI18N
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu.getContentPane());
         Menu.getContentPane().setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
+            .addGroup(MenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MenuLayout.createSequentialGroup()
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Label_Show, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(MenuLayout.createSequentialGroup()
                         .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane5)))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jSeparator2)
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4)))
                 .addContainerGap())
         );
         MenuLayout.setVerticalGroup(
@@ -119,16 +136,22 @@ public class General extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Label_Show, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         TableCocina.setModel(new javax.swing.table.DefaultTableModel(
@@ -346,6 +369,8 @@ public class General extends javax.swing.JFrame implements Runnable {
                 // tener el pedido
             }
             Pedido p = new Pedido(NroPedido, numeroMesa, numeroMesero, lp);
+            p.addPrice(Monto+"");
+            System.out.println(p.getValor());
 //            p.showPedidoList();
 //            controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
 //                                            // los pedidos del restaurante
@@ -367,7 +392,10 @@ public class General extends javax.swing.JFrame implements Runnable {
         } else {
             System.out.println("Nada para agregar");
         }
-
+        Menu.dispose();
+        Monto = 0;
+        K = 0;
+        Label_Show.setText("");
     }//GEN-LAST:event_BtnPedidosActionPerformed
     private void addToTable(String p, String type) {
         DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
@@ -384,7 +412,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Menu.setVisible(true);
-        Menu.setSize(500, 320);
+        Menu.setSize(490, 435);
 
         if (ft == true) { // para que cuando entren no se dupliquen datos
             controlador.FormarMenu(platosPanel, bebidasPanel, postresPanel);
@@ -393,6 +421,9 @@ public class General extends javax.swing.JFrame implements Runnable {
                 component1.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                         addToTable(e.getComponent().getName(), "Plato");
+                        Monto = Monto + Integer.parseInt(TablePedidos.getValueAt(K, 2).toString());
+                        Label_Show.setText("$ "+Monto);
+                        K++;
                     }
                 });
             }
@@ -401,6 +432,9 @@ public class General extends javax.swing.JFrame implements Runnable {
                 component1.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                         addToTable(e.getComponent().getName(), "Bebida");
+                        Monto = Monto + Integer.parseInt(TablePedidos.getValueAt(K, 2).toString());
+                        Label_Show.setText("$ "+Monto);
+                        K++;
                     }
                 });
             }
@@ -409,6 +443,9 @@ public class General extends javax.swing.JFrame implements Runnable {
                 component1.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent e) {
                         addToTable(e.getComponent().getName(), "Postre");
+                        Monto = Monto + Integer.parseInt(TablePedidos.getValueAt(K, 2).toString());
+                        Label_Show.setText("$ "+Monto);
+                        K++;
                     }
                 });
             }
@@ -511,6 +548,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton BtnPedidos;
     private javax.swing.JFrame Cocina;
     private javax.swing.JButton JKitchen;
+    private javax.swing.JLabel Label_Show;
     private javax.swing.JFrame Menu;
     private javax.swing.JSpinner MesaSpinner;
     private javax.swing.JComboBox<String> MeseroComb;
@@ -527,6 +565,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -534,6 +573,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel platosPanel;
     private javax.swing.JPanel postresPanel;
     // End of variables declaration//GEN-END:variables

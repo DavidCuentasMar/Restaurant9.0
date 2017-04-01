@@ -19,6 +19,7 @@ public class Pedido {
     public String Camarero;
     private Pedido link;
     private  ListaProducto productos;
+    private int valor;
 
 
     public Pedido(int NroPedido, String Mesa, String Camarero, ListaProducto productos) {
@@ -26,6 +27,7 @@ public class Pedido {
         this.Mesa = Mesa;
         this.Camarero = Camarero;
         this.productos = productos;
+        this.valor = 0;
     }
     public void showPedidoList(){
         productos.showList();
@@ -59,7 +61,15 @@ public class Pedido {
         return productos.getListTxt();
     }
 
+    public void addPrice(String Monto){
+        this.valor = this.valor+Integer.parseInt(Monto);
+    }
 
+    public int getValor() {
+        return valor;
+    }
     
-    
+    public void setPrice(String Monto){
+        this.valor = this.valor-Integer.parseInt(Monto);
+    }
 }

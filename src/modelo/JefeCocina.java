@@ -34,6 +34,7 @@ public class JefeCocina {
                     archivo.archivoTemp(q.getName(),q.getType(),cant-1, price);
                 }else{
                     System.out.println(q.getName()+" no tiene en el stock");
+                    p.setPrice(price+"");
                 }                                    
             }else{
                 String name = q.getName();
