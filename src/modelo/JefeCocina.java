@@ -61,10 +61,10 @@ public class JefeCocina {
                     }
                 }else{
                     System.out.println("El plato " + name + "no tiene los ingredientes completos"+ "[NO COCINADO]");
+
+                    
                 }
-                // AQUI ENTRA SI EN UN PLATO, SE TIENE QUE BUSCAR QUE INGREDIENTES
-                //TIENE EN EL ARCHIVO PLATO UNA VEZ SE RECORRE Y MIENTRAS QUE SE RECCORE
-                // ESA LISTA SE UNA archivo.archivoTEMP()
+                
         
             }
 
