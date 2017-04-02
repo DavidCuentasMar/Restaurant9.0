@@ -6,6 +6,7 @@
 package modelo;
 
 import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,6 +15,7 @@ import java.util.StringTokenizer;
 public class JefeCocina {
     ListaProducto productList;
     Archivo archivo;
+    String Factura;
 
     public JefeCocina( ) {
         archivo = new Archivo();
@@ -22,6 +24,7 @@ public class JefeCocina {
     
     
     public void actualizarStock(int NoPedido, Cocina cocina) {
+        Factura = "Factura"+"\n";
         String noCocinados="";
         int noCocinadosPrice=0;
         Pedido p = cocina.findPedido(NoPedido); //Buscamos el pedido
@@ -34,10 +37,11 @@ public class JefeCocina {
                 int cant = archivo.getCantidad(q.getName());
                 int price = archivo.getPrice(q.getName());
                 if (cant>=1) {
-                    archivo.archivoTemp(q.getName(),q.getType(),cant-1, price);                   
+                    archivo.archivoTemp(q.getName(),q.getType(),cant-1, price); 
+                    Factura = Factura + q.getName()+".............."+price+"$"+"\n";
                 }else{
 //                    System.out.println(q.getName()+" no tiene en el stock");
-                    p.setPrice(price);
+                    //p.setPrice(price);
                     noCocinados=noCocinados+q.getType()+"/"+q.getName()+",";
                     noCocinadosPrice=noCocinadosPrice+price;
                 }                                    
@@ -66,6 +70,7 @@ public class JefeCocina {
                         int price = archivo.getPrice(token);
                         archivo.archivoTemp(token,"Ingrediente",cant-1, price);       
                     }
+                    Factura = Factura + q.getName()+".........."+archivo.getPrice(name)+"$"+"\n";
                 }else{
 //                    System.out.println("El plato " + name + "no tiene los ingredientes completos"+ "[NO COCINADO]");
                     noCocinados=noCocinados+"Plato/"+name+",";    
@@ -78,8 +83,14 @@ public class JefeCocina {
             System.out.println("Productos no cocinados: " + noCocinados); //String con productos que no se cocinaron
             System.out.println("Precio no cocinados: " + noCocinadosPrice); // lo que se tiene que restar al valor pedido
             p.setPrice(noCocinadosPrice);
-        }        
-        System.out.println("Precio del pedido: "+ p.getValor());
+        }  
+        Factura = Factura + "Total"+"..........."+p.getValor()+"$"+"\n";
+        Factura = Factura + "IVA 5%"+".........."+(p.getValor()*0.05)+"$"+"\n";
+        Factura = Factura + "Propina 10%"+"......."+(p.getValor()*0.1)+"$"+"\n";
+        Factura = Factura + "Total a Pagar"+".........."+(p.getValor()+(p.getValor()*0.05+p.getValor()*0.1))+"$"+"\n";
+        Factura = Factura + ".....................................";
+        JOptionPane.showMessageDialog(null,Factura);
+        //System.out.println("Precio del pedido: "+ p.getValor());
     }
     
     
