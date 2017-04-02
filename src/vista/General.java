@@ -615,5 +615,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         TableCocina.setValueAt("Listo", row, 2);
         DefaultTableModel model = (DefaultTableModel) TableCocina.getModel();            
         model.removeRow(row);
+        
+        
     }
 }

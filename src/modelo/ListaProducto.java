@@ -43,15 +43,12 @@ public class ListaProducto {
             q.setLink(p);
         }        
     }
-
     public Producto getPtr() {
         return ptr;
     }
-
     public void setPtr(Producto ptr) {
         this.ptr = ptr;
     }
-    
 }
         
         

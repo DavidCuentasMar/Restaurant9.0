@@ -178,10 +178,8 @@ public class Archivo {
             list.remove(); // Aquí como se pierde el ptr se muere la list
         } catch (IOException ex) {
             Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
     }
-
     public void archivoTemp(String name,String type, int cant, int price){
         try(FileWriter bw = new FileWriter("archivos/temp.txt", true)){         
             BufferedWriter w = new BufferedWriter(bw);
@@ -278,6 +276,27 @@ public class Archivo {
                     token=st.nextElement().toString();
                     if (name.equals(token)) {
                         token=st.nextElement().toString();
+                        token=st.nextElement().toString();
+                        return Integer.parseInt(token);                        
+                    }                    
+                }
+            }
+            b.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return -15;
+    }
+
+    int getPricePlato(String name) {
+        String cadena;
+        try(FileReader f = new FileReader("archivos/platos.txt")){
+            BufferedReader b = new BufferedReader(f);            
+            while((cadena = b.readLine())!=null) {
+                StringTokenizer st = new StringTokenizer(cadena,",");
+                while(st.hasMoreElements()){
+                    String token=st.nextElement().toString();                    
+                    if (name.equals(token)) {
                         token=st.nextElement().toString();
                         return Integer.parseInt(token);                        
                     }                    
