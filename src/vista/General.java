@@ -503,8 +503,11 @@ public class General extends javax.swing.JFrame implements Runnable {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (TablePedidos.getSelectedRow()!=-1) {
             int row= TablePedidos.getSelectedRow();
-            DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();            
+            DefaultTableModel model = (DefaultTableModel) TablePedidos.getModel();
+            Monto = Monto - Integer.parseInt(TablePedidos.getValueAt(row, 2).toString());            
             model.removeRow(row);
+            K--;
+            Label_Show.setText("$ "+Monto+"");
         }        
     }//GEN-LAST:event_jButton2ActionPerformed
 
