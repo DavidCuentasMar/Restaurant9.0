@@ -74,7 +74,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         jScrollPane2 = new javax.swing.JScrollPane();
         TablePedidos = new javax.swing.JTable();
         JKitchen = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        Btn_Menu = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/platos.png"))); // NOI18N
@@ -283,12 +283,12 @@ public class General extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu.png"))); // NOI18N
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setBorderPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Btn_Menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu.png"))); // NOI18N
+        Btn_Menu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Btn_Menu.setBorderPainted(false);
+        Btn_Menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Btn_MenuActionPerformed(evt);
             }
         });
 
@@ -321,7 +321,7 @@ public class General extends javax.swing.JFrame implements Runnable {
                             .addComponent(MeseroComb, 0, 94, Short.MAX_VALUE)
                             .addComponent(MesaSpinner))
                         .addGap(57, 57, 57)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Btn_Menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -338,7 +338,7 @@ public class General extends javax.swing.JFrame implements Runnable {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(MesaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Btn_Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -410,7 +410,7 @@ public class General extends javax.swing.JFrame implements Runnable {
 
         //abrir archivo, encontrar plato y poner precio.
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void Btn_MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_MenuActionPerformed
         Menu.setVisible(true);
         Menu.setSize(490, 435);
 
@@ -453,7 +453,7 @@ public class General extends javax.swing.JFrame implements Runnable {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_Btn_MenuActionPerformed
 
     private void MeseroCombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroCombActionPerformed
         // TODO add your handling code here:
@@ -468,13 +468,10 @@ public class General extends javax.swing.JFrame implements Runnable {
     private void infoPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoPedidoBtnActionPerformed
         if (TableCocina.getSelectedRow()!=-1) {
             int row = TableCocina.getSelectedRow();
-            System.out.println("No.Pedido: " + TableCocina.getValueAt(row, 0).toString());
-            System.out.println("No.Mesa: " + TableCocina.getValueAt(row, 1).toString());
             Pedido p = controlador.findPedido(TableCocina.getValueAt(row, 0).toString());
     //        p.showPedidoList();
             String productosTxt = p.getProductosTxt();
-            System.out.println("------\n" + productosTxt);
-            JOptionPane.showMessageDialog(this,
+                JOptionPane.showMessageDialog(this,
                     "No.Pedido: " + TableCocina.getValueAt(row, 0).toString()
                     + "\nNo.Mesa: " + TableCocina.getValueAt(row, 1).toString()
                     + "\n----------\n" + productosTxt);            
@@ -549,6 +546,7 @@ public class General extends javax.swing.JFrame implements Runnable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCocinar;
     private javax.swing.JButton BtnPedidos;
+    private javax.swing.JButton Btn_Menu;
     private javax.swing.JFrame Cocina;
     private javax.swing.JButton JKitchen;
     private javax.swing.JLabel Label_Show;
@@ -561,7 +559,6 @@ public class General extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel bebidasPanel;
     private javax.swing.JFrame infoPedido;
     private javax.swing.JButton infoPedidoBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
