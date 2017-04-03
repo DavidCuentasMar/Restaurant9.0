@@ -11,7 +11,7 @@ import modelo.*;
  *
  * @author dacuentas
  */
-public class General extends javax.swing.JFrame implements Runnable {
+public class MeseroView extends javax.swing.JFrame implements Runnable {
 
     int x = 10;
     int y = 10;
@@ -23,11 +23,17 @@ public class General extends javax.swing.JFrame implements Runnable {
     int Monto = 0;
     int K = 0;
     Controlador controlador;
+    CocinaView cocinaView;
+    GeneralView generalView;
     public void setFt(boolean ft) {
         this.ft = ft;
     }
 
-    public General() {
+    public void setCocinaView(CocinaView cocinaView) {
+        this.cocinaView = cocinaView;
+    }
+
+    public MeseroView() {
         controlador = new Controlador();
         initComponents();
         TextSeg.setText(String.valueOf(seg));
@@ -231,8 +237,6 @@ public class General extends javax.swing.JFrame implements Runnable {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("Mesero:");
 
         MeseroComb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mesero 1", "Mesero 2", "Mesero 3", "Mesero 4" }));
@@ -375,8 +379,8 @@ public class General extends javax.swing.JFrame implements Runnable {
 //            controlador.addPedidoToList(p); // Agrega el pedido a la lista de todos
 //                                            // los pedidos del restaurante
             controlador.addPedidoToCocina(p);
-
-            DefaultTableModel modelo = (DefaultTableModel) TableCocina.getModel();
+            System.out.println(cocinaView.getTableCocina().getName());
+            DefaultTableModel modelo = (DefaultTableModel) cocinaView.getTableCocina().getModel();
             Row[0] = NroPedido;
             Row[1] = numeroMesa;
             Row[2] = "En Espera";
@@ -525,20 +529,21 @@ public class General extends javax.swing.JFrame implements Runnable {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(General.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeseroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(General.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeseroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(General.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeseroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(General.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MeseroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new General().setVisible(true);
+                new MeseroView().setVisible(true);
             }
         });
     }

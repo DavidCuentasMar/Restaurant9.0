@@ -6,9 +6,9 @@ Ingrediente,Carne,48,0
 Ingrediente,Huevo,42,0
 Ingrediente,Pan,50,0
 Ingrediente,Salchicha,50,0
-Bebida,Agua,5,1500
+Bebida,Agua,4,1500
 Bebida,Pepsi,40,1500
-Bebida,CocaCola,44,1500
+Bebida,CocaCola,42,1500
 Postre,Biscotti,43,7500
 Postre,Brownie,44,7500
 Postre,Sopa,0,7500

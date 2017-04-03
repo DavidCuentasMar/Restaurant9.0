@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import vista.General;
+import vista.MeseroView;
 
 /**
  *
@@ -13,10 +13,10 @@ import vista.General;
  */
 public class Time extends Thread {
 
-    private General G;
+    private MeseroView G;
     private int Seg;
 
-    public Time(General G) {
+    public Time(MeseroView G) {
         this.G = G;
         Seg = G.getSeg();
     }
